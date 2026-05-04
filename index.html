@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Super 8 Sets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { display: ['Oswald','sans-serif'], body: ['"DM Sans"','sans-serif'] },
+                    colors: {
+                        dark: { DEFAULT:'#0a0e0c', light:'#0f1512' },
+                        panel:'#141a17', 'panel-h':'#1a2420',
+                        neon:{ DEFAULT:'#00ff88', dim:'#00cc6a' },
+                        gold:'#ffd000', muted:'#6b7c72',
+                        line:'#1e2a24', 'line-l':'#2a3a32', danger:'#ff4757'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'DM Sans',sans-serif;background:#0a0e0c;color:#e8ede9;min-height:100vh;overflow-x:hidden}
+        body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 15% 0%,rgba(0,255,136,.07) 0%,transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(0,255,136,.04) 0%,transparent 50%);pointer-events:none;z-index:0}
+        body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,136,.013) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.013) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+        .z1{position:relative;z-index:1}
+
+        .gtabs{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}
+        .gtabs::-webkit-scrollbar{display:none}
+        .gtab{flex-shrink:0;padding:9px 18px;border-radius:10px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;transition:all .25s;background:#141a17;color:#6b7c72;border:1px solid #1e2a24;outline:none;display:flex;align-items:center;gap:7px}
+        .gtab:hover{background:#1a2420;color:#a0b5aa}
+        .gtab:focus-visible{box-shadow:0 0 0 2px #00ff88}
+        .gtab.on{background:linear-gradient(135deg,#00ff88,#00cc6a);color:#0a0e0c;border-color:transparent;box-shadow:0 4px 24px rgba(0,255,136,.25)}
+        .gtab .badge{font-size:10px;font-weight:700;background:rgba(0,0,0,.2);padding:1px 6px;border-radius:6px;letter-spacing:.5px}
+        .gtab.on .badge{background:rgba(0,0,0,.15)}
+
+        .rtbl{width:100%;border-collapse:separate;border-spacing:0 5px}
+        .rtbl thead th{font-family:'Oswald',sans-serif;font-weight:500;font-size:11px;letter-spacing:1.8px;text-transform:uppercase;color:#6b7c72;padding:6px 14px;text-align:left}
+        .rtbl thead th:nth-child(3),.rtbl thead th:nth-child(4){text-align:center}
+        .rtbl tbody tr{background:#141a17;transition:background .2s}
+        .rtbl tbody tr:hover{background:#1a2420}
+        .rtbl tbody td{padding:13px 14px;font-size:14px}
+        .rtbl tbody td:first-child{border-radius:10px 0 0 10px;width:44px;text-align:center;font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;color:#4a5c52}
+        .rtbl tbody td:nth-child(2){max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+        .rtbl tbody td:nth-child(3){text-align:center;font-family:'Oswald',sans-serif;font-weight:500;font-size:14px}
+        .rtbl tbody td:last-child{border-radius:0 10px 10px 0;text-align:center;font-family:'Oswald',sans-serif;font-weight:700;font-size:18px}
+
+        .rk-trophy{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;font-size:14px}
+        .rk-1 td:first-child{color:#ffd000}.rk-1 td:last-child{color:#ffd000}
+        .rk-2 td:first-child{color:#c0c0c0}.rk-2 td:last-child{color:#c0c0c0}
+        .rk-3 td:first-child{color:#cd7f32}.rk-3 td:last-child{color:#cd7f32}
+
+        .sp{color:#00ff88}.sn{color:#ff4757}.sz{color:#4a5c52}
+
+        .ninput{width:100%;padding:9px 12px;background:rgba(0,0,0,.3);border:1px solid #1e2a24;border-radius:8px;color:#e8ede9;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}
+        .ninput:focus{border-color:#00ff88;box-shadow:0 0 0 2px rgba(0,255,136,.12)}
+        .ninput::placeholder{color:#3a4a42}
+
+        .sinput{width:46px;padding:7px 2px;text-align:center;background:rgba(0,0,0,.4);border:1px solid #2a3a32;border-radius:7px;color:#e8ede9;font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;outline:none;transition:border-color .2s,box-shadow .2s}
+        .sinput:focus{border-color:#00ff88;box-shadow:0 0 0 2px rgba(0,255,136,.15)}
+        .sinput::placeholder{color:#2a3a32}
+        input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+        input[type=number]{-moz-appearance:textfield}
+
+        .rcard{background:#141a17;border:1px solid #1e2a24;border-radius:14px;padding:16px 18px;transition:border-color .2s,background .2s}
+        .rcard:hover{border-color:#2a3a32;background:#171f1b}
+        .rcard.conf{border-left:3px solid #00cc6a}
+        .rlbl{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#00cc6a;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+        .rdot{width:7px;height:7px;border-radius:50%;background:#00ff88;box-shadow:0 0 8px rgba(0,255,136,.5);animation:dp 2s ease-in-out infinite;flex-shrink:0}
+        .rdot.done{background:#00cc6a;box-shadow:none;animation:none}
+        @keyframes dp{0%,100%{box-shadow:0 0 6px rgba(0,255,136,.3)}50%{box-shadow:0 0 14px rgba(0,255,136,.6)}}
+
+        .mblk{padding:2px 0}.mblk+.mblk{margin-top:10px;padding-top:12px;border-top:1px solid #1e2a24}
+        .mrow{display:flex;align-items:center;gap:8px}
+        .tname{flex:1;min-width:0;font-size:13px;font-weight:500;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .15s}
+        .tname.rr{text-align:right}
+        .tname.w{color:#e8ede9}.tname.l{color:#4a5c52}
+        .sbox{display:flex;align-items:center;gap:4px;flex-shrink:0;background:rgba(0,0,0,.3);border-radius:8px;padding:5px 10px}
+        .snum{font-family:'Oswald',sans-serif;font-size:20px;font-weight:700;line-height:1}
+        .snum.w{color:#00ff88}.snum.lo{color:#4a5c52}
+        .sx{font-family:'Oswald',sans-serif;font-size:13px;color:#2a3a32;margin:0 1px}
+        .sibx{display:flex;align-items:center;gap:4px;flex-shrink:0}
+
+        .btn-c{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:12px;padding:9px 0;border:none;border-radius:8px;background:linear-gradient(135deg,#00ff88,#00cc6a);color:#0a0e0c;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+        .btn-c:hover{box-shadow:0 4px 20px rgba(0,255,136,.3);transform:translateY(-1px)}
+        .btn-c:active{transform:translateY(0)}
+        .btn-c:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+        .btn-e{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:12px;padding:8px 0;border:1px solid #2a3a32;border-radius:8px;background:transparent;color:#6b7c72;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+        .btn-e:hover{border-color:#4a5c52;color:#a0b5aa}
+
+        .ntgl{display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 14px;background:#141a17;border:1px solid #1e2a24;border-radius:10px;cursor:pointer;transition:all .2s;color:#e8ede9}
+        .ntgl:hover{background:#1a2420;border-color:#2a3a32}
+        .ngrid{overflow:hidden;transition:max-height .35s ease,opacity .3s ease,padding .3s ease;max-height:400px;opacity:1;padding-top:12px}
+        .ngrid.shut{max-height:0;opacity:0;padding-top:0}
+
+        .toast{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:500;pointer-events:auto;transform:translateY(-12px);opacity:0;transition:all .3s ease;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+        .toast.show{transform:translateY(0);opacity:1}
+        .toast-ok{background:#0d2818;border:1px solid #00cc6a;color:#00ff88}
+        .toast-err{background:#2a0f13;border:1px solid #ff4757;color:#ff6b7a}
+        .toast-info{background:#0f1a2a;border:1px solid #3b82f6;color:#60a5fa}
+
+        .empty-st{text-align:center;padding:24px 16px;color:#3a4a42;font-size:13px}
+
+        @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+        .ani{animation:fu .35s ease both}
+
+        .hemblem{position:absolute;font-family:'Oswald',sans-serif;font-size:180px;font-weight:700;color:rgba(0,255,136,.025);top:-50px;right:-10px;line-height:1;pointer-events:none;user-select:none}
+
+        @keyframes tShine{0%,100%{filter:drop-shadow(0 0 2px rgba(255,208,0,.3))}50%{filter:drop-shadow(0 0 6px rgba(255,208,0,.6))}}
+        .rk-trophy.gold{animation:tShine 2.5s ease-in-out infinite;color:#ffd000}
+        .rk-trophy.silver{color:#c0c0c0}
+        .rk-trophy.bronze{color:#cd7f32}
+
+        ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#1e2a24;border-radius:4px}
+        @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+        @media(max-width:380px){.tname{font-size:12px}.snum{font-size:18px}.sinput{width:40px;font-size:16px}.sbox{padding:4px 8px}.rk-trophy{width:24px;height:24px;font-size:12px}}
+    </style>
+</head>
+<body class="font-body">
+
+<div id="toastBox" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+<div class="z1 max-w-lg mx-auto px-4 pb-20">
+
+    <header class="relative pt-10 pb-6 text-center overflow-hidden">
+        <span class="hemblem" aria-hidden="true">8</span>
+        <div class="inline-flex items-center gap-3 mb-1">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-neon to-neon-dim flex items-center justify-center shadow-lg shadow-neon/20">
+                <i class="fas fa-volleyball-ball text-dark text-lg"></i>
+            </div>
+            <h1 class="font-display text-[2rem] font-bold tracking-widest text-white leading-none">SUPER 8 SETS</h1>
+        </div>
+        <p class="text-muted text-sm tracking-wide mt-1">Gerencie grupos, resultados e classificações</p>
+    </header>
+
+    <nav class="gtabs mb-7" id="tabs" role="tablist" aria-label="Seleção de grupo"></nav>
+    <main id="main" role="tabpanel" aria-live="polite"></main>
+
+</div>
+
+<script>
+const PARE = [
+    [[0,1],[2,3]], [[4,5],[6,7]],
+    [[0,2],[4,6]], [[1,3],[5,7]],
+    [[0,3],[5,6]], [[1,2],[4,7]],
+    [[0,4],[1,5]], [[2,6],[3,7]],
+    [[0,5],[3,6]], [[1,4],[2,7]],
+    [[0,6],[1,7]], [[2,4],[3,5]],
+    [[0,7],[2,5]], [[1,6],[3,4]]
+];
+const RODADA_DA = [1,1,2,2,3,3,4,4,5,5,6,6,7,7];
+const LETRAS = 'ABCDEFGH'.split('');
+
+let gAtivo = 'A';
+let G = {};
+let nomesAberto = true;
+
+function criarGrupo() {
+    return {
+        nomes: Array(8).fill(''),
+        partidas: PARE.map((p, i) => ({
+            rodada: RODADA_DA[i],
+            t1: [...p[0]],
+            t2: [...p[1]],
+            placar: ['', ''],
+            conf: false
+        }))
+    };
+}
+
+function initGrupos() {
+    if (carregar()) return;
+    LETRAS.forEach(l => { G[l] = criarGrupo(); });
+}
+
+function salvar() {
+    try { localStorage.setItem('s8s_data', JSON.stringify(G)); } catch(e) {}
+}
+function carregar() {
+    try {
+        const d = localStorage.getItem('s8s_data');
+        if (!d) return false;
+        G = JSON.parse(d);
+        LETRAS.forEach(l => {
+            if (!G[l] || !G[l].partidas || G[l].partidas.length !== 14) G[l] = criarGrupo();
+        });
+        return true;
+    } catch(e) { return false; }
+}
+
+function nome(l, i) {
+    const n = G[l].nomes[i].trim();
+    return n || ('Jogador ' + (i + 1));
+}
+
+function calcRanking(l) {
+    const st = {};
+    for (let i = 0; i < 8; i++) st[i] = { idx: i, pts: 0, saldo: 0 };
+    G[l].partidas.forEach(p => {
+        if (!p.conf) return;
+        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
+        const d = s1 - s2;
+        p.t1.forEach(i => { if (d > 0) st[i].pts += 3; st[i].saldo += d; });
+        p.t2.forEach(i => { if (d < 0) st[i].pts += 3; st[i].saldo -= d; });
+    });
+    return Object.values(st).sort((a, b) => b.pts !== a.pts ? b.pts - a.pts : b.saldo - a.saldo);
+}
+
+function confCount(l) { return G[l].partidas.filter(p => p.conf).length; }
+function nomesCount(l) { return G[l].nomes.filter(n => n.trim()).length; }
+function fSaldo(v) { return v > 0 ? '+' + v : String(v); }
+function cSaldo(v) { return v > 0 ? 'sp' : v < 0 ? 'sn' : 'sz'; }
+
+function toast(msg, tipo) {
+    const box = document.getElementById('toastBox');
+    const el = document.createElement('div');
+    el.className = 'toast toast-' + tipo;
+    el.textContent = msg;
+    box.appendChild(el);
+    requestAnimationFrame(() => el.classList.add('show'));
+    setTimeout(() => {
+        el.classList.remove('show');
+        setTimeout(() => el.remove(), 300);
+    }, 2500);
+}
+
+function renderTabs() {
+    const c = document.getElementById('tabs');
+    c.innerHTML = '';
+    LETRAS.forEach(l => {
+        const btn = document.createElement('button');
+        const cc = confCount(l);
+        btn.className = 'gtab' + (l === gAtivo ? ' on' : '');
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', String(l === gAtivo));
+        btn.innerHTML = 'Grupo ' + l + (cc > 0 ? '<span class="badge">' + cc + '/14</span>' : '');
+        btn.addEventListener('click', () => {
+            if (l === gAtivo) return;
+            gAtivo = l;
+            renderTabs();
+            renderContent();
+        });
+        c.appendChild(btn);
+    });
+}
+function updateTabBadge(l) {
+    const tabs = document.getElementById('tabs').children;
+    const idx = LETRAS.indexOf(l);
+    if (idx < 0 || !tabs[idx]) return;
+    const cc = confCount(l);
+    const btn = tabs[idx];
+    const existing = btn.querySelector('.badge');
+    if (cc > 0) {
+        if (existing) existing.textContent = cc + '/14';
+        else { const b = document.createElement('span'); b.className = 'badge'; b.textContent = cc + '/14'; btn.appendChild(b); }
+    } else if (existing) existing.remove();
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function escAttr(s) { return String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
+
+function trofeu(pos) {
+    if (pos === 0) return '<span class="rk-trophy gold"><i class="fas fa-trophy"></i></span>';
+    if (pos === 1) return '<span class="rk-trophy silver"><i class="fas fa-trophy"></i></span>';
+    if (pos === 2) return '<span class="rk-trophy bronze"><i class="fas fa-trophy"></i></span>';
+    return String(pos + 1);
+}
+function rkCls(pos) {
+    if (pos === 0) return 'rk-1';
+    if (pos === 1) return 'rk-2';
+    if (pos === 2) return 'rk-3';
+    return '';
+}
+
+function renderContent() {
+    const g = G[gAtivo];
+    const nc = nomesCount(gAtivo);
+    const cc = confCount(gAtivo);
+    let h = '';
+
+    h += '<section class="mb-6 ani">';
+    h += '<button class="ntgl" data-acao="toggle-nomes" aria-expanded="' + nomesAberto + '">';
+    h += '<div class="flex items-center gap-2"><i class="fas fa-users text-neon text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Jogadores</span>';
+    h += '<span class="text-muted text-xs font-body font-normal tracking-normal">(' + nc + '/8)</span></div>';
+    h += '<i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300" style="transform:rotate(' + (nomesAberto ? 0 : -90) + 'deg)"></i>';
+    h += '</button>';
+    h += '<div class="ngrid' + (nomesAberto ? '' : ' shut') + '">';
+    h += '<div class="grid grid-cols-2 gap-3">';
+    for (let i = 0; i < 8; i++) {
+        h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Jogador ' + (i + 1) + '</label>';
+        h += '<input class="ninput" data-nome-idx="' + i + '" placeholder="Nome do jogador..." value="' + escAttr(g.nomes[i]) + '" /></div>';
+    }
+    h += '</div></div></section>';
+
+    h += '<section class="mb-8 ani" style="animation-delay:80ms">';
+    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
+    h += '<i class="fas fa-medal text-neon text-xs"></i>Classificação — Grupo ' + gAtivo + '</h2>';
+    h += '<div class="overflow-x-auto"><table class="rtbl"><thead><tr>';
+    h += '<th>#</th><th>Atleta</th><th>Saldo</th><th>Pts</th>';
+    h += '</tr></thead><tbody id="rkBody">';
+    h += renderRankRows(gAtivo);
+    h += '</tbody></table></div></section>';
+
+    h += '<section class="ani" style="animation-delay:160ms">';
+    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
+    h += '<i class="fas fa-list-ol text-neon text-xs"></i>Resultados das Rodadas';
+    h += '<span class="text-muted text-xs font-body font-normal tracking-normal ml-1">(' + cc + '/14)</span></h2>';
+    h += '<div class="flex flex-col gap-3" id="rodBox">';
+    for (let r = 1; r <= 7; r++) h += renderRodada(gAtivo, r);
+    h += '</div></section>';
+
+    h += '<footer class="mt-10 pt-6 border-t border-line text-center ani" style="animation-delay:300ms">';
+    h += '<p class="text-muted text-xs tracking-wide">Pontuação: 3 pts por vitória de dupla — Desempate por saldo de sets</p>';
+    h += '<p class="text-muted/40 text-[11px] mt-1">Top 2 de cada grupo avançam</p>';
+    h += '<button class="btn-e mt-4 mx-auto" data-acao="resetar" style="width:auto;padding:8px 20px"><i class="fas fa-redo-alt mr-1"></i>Resetar Grupo ' + gAtivo + '</button>';
+    h += '</footer>';
+
+    document.getElementById('main').innerHTML = h;
+}
+
+function renderRankRows(l) {
+    const rk = calcRanking(l);
+    const cc = confCount(l);
+    if (cc === 0) {
+        return '<tr><td colspan="4" class="!text-center !py-6"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Encerre partidas para ver a classificação</span></td></tr>';
+    }
+    let h = '';
+    rk.forEach((j, i) => {
+        h += '<tr class="' + rkCls(i) + '">';
+        h += '<td>' + trofeu(i) + '</td>';
+        h += '<td class="font-medium">' + esc(nome(l, j.idx)) + '</td>';
+        h += '<td class="' + cSaldo(j.saldo) + '">' + fSaldo(j.saldo) + '</td>';
+        h += '<td>' + j.pts + '</td>';
+        h += '</tr>';
+    });
+    return h;
+}
+
+function renderRodada(l, rNum) {
+    const g = G[l];
+    const pIdxs = [];
+    g.partidas.forEach((p, i) => { if (p.rodada === rNum) pIdxs.push(i); });
+    const allConf = pIdxs.every(i => g.partidas[i].conf);
+    let h = '<div class="rcard' + (allConf ? ' conf' : '') + '" id="rod-' + rNum + '">';
+    h += '<div class="rlbl"><span class="rdot' + (allConf ? ' done' : '') + '"></span>Rodada ' + rNum + '</div>';
+    pIdxs.forEach((pi, mi) => {
+        h += '<div class="mblk' + (mi > 0 ? ' mt-3 pt-3 border-t border-line' : '') + '" id="pt-' + pi + '">';
+        h += renderPartida(l, pi);
+        h += '</div>';
+    });
+    h += '</div>';
+    return h;
+}
+
+function renderPartida(l, pi) {
+    const p = G[l].partidas[pi];
+    const n1 = nome(l, p.t1[0]), n2 = nome(l, p.t1[1]);
+    const n3 = nome(l, p.t2[0]), n4 = nome(l, p.t2[1]);
+    if (p.conf) {
+        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
+        const t1w = s1 > s2;
+        return '<div class="mrow">'
+            + '<div class="tname rr ' + (t1w ? 'w' : 'l') + '"><span data-ni="' + p.t1[0] + '">' + esc(n1) + '</span> / <span data-ni="' + p.t1[1] + '">' + esc(n2) + '</span></div>'
+            + '<div class="sbox"><span class="snum ' + (t1w ? 'w' : 'lo') + '">' + s1 + '</span><span class="sx">x</span><span class="snum ' + (!t1w ? 'w' : 'lo') + '">' + s2 + '</span></div>'
+            + '<div class="tname ' + (!t1w ? 'w' : 'l') + '"><span data-ni="' + p.t2[0] + '">' + esc(n3) + '</span> / <span data-ni="' + p.t2[1] + '">' + esc(n4) + '</span></div>'
+            + '</div>'
+            + '<button class="btn-e" data-acao="editar" data-pi="' + pi + '"><i class="fas fa-pen text-[10px]"></i>Editar Resultado</button>';
+    } else {
+        return '<div class="mrow">'
+            + '<div class="tname rr"><span data-ni="' + p.t1[0] + '">' + esc(n1) + '</span> / <span data-ni="' + p.t1[1] + '">' + esc(n2) + '</span></div>'
+            + '<div class="sibx"><input type="number" class="sinput" data-pi="' + pi + '" data-tm="1" min="0" placeholder="0" value="' + escAttr(p.placar[0]) + '" /><span class="sx">x</span><input type="number" class="sinput" data-pi="' + pi + '" data-tm="2" min="0" placeholder="0" value="' + escAttr(p.placar[1]) + '" /></div>'
+            + '<div class="tname"><span data-ni="' + p.t2[0] + '">' + esc(n3) + '</span> / <span data-ni="' + p.t2[1] + '">' + esc(n4) + '</span></div>'
+            + '</div>'
+            + '<button class="btn-c" data-acao="confirmar" data-pi="' + pi + '"><i class="fas fa-check text-xs"></i>Encerrar Partida</button>';
+    }
+}
+
+function updateRanking() {
+    const body = document.getElementById('rkBody');
+    if (body) body.innerHTML = renderRankRows(gAtivo);
+}
+
+function updatePartida(pi) {
+    const el = document.getElementById('pt-' + pi);
+    if (!el) return;
+    const tmp = document.createElement('div');
+    tmp.innerHTML = '<div class="mblk" id="pt-' + pi + '">' + renderPartida(gAtivo, pi) + '</div>';
+    el.replaceWith(tmp.firstElementChild);
+    updateRodDot(G[gAtivo].partidas[pi].rodada);
+}
+
+function updateRodDot(rNum) {
+    const g = G[gAtivo];
+    const pIdxs = [];
+    g.partidas.forEach((p, i) => { if (p.rodada === rNum) pIdxs.push(i); });
+    const allC = pIdxs.every(i => g.partidas[i].conf);
+    const card = document.getElementById('rod-' + rNum);
+    if (!card) return;
+    const dot = card.querySelector('.rdot');
+    if (dot) dot.classList.toggle('done', allC);
+    card.classList.toggle('conf', allC);
+}
+
+function updateNomesCount() {
+    const nc = nomesCount(gAtivo);
+    const sp = document.querySelector('[data-acao="toggle-nomes"] .text-muted');
+    if (sp) sp.textContent = '(' + nc + '/8)';
+}
+
+function updateAllNameSpans() {
+    document.querySelectorAll('#main [data-ni]').forEach(el => {
+        el.textContent = nome(gAtivo, parseInt(el.dataset.ni));
+    });
+}
+
+function updateRodCount() {
+    const cc = confCount(gAtivo);
+    const spans = document.querySelectorAll('#main section:nth-child(3) h2 span');
+    spans.forEach(sp => { if (sp.classList.contains('text-muted')) sp.textContent = '(' + cc + '/14)'; });
+}
+
+function acaoConfirmar(pi) {
+    const p = G[gAtivo].partidas[pi];
+    const v1 = p.placar[0].trim(), v2 = p.placar[1].trim();
+    if (!v1 || !v2) { toast('Preencha ambos os placares', 'err'); return; }
+    const s1 = parseInt(v1), s2 = parseInt(v2);
+    if (isNaN(s1) || isNaN(s2) || s1 < 0 || s2 < 0) { toast('Insira valores válidos', 'err'); return; }
+    if (s1 === s2) { toast('Não pode haver empate', 'err'); return; }
+    p.placar = [String(s1), String(s2)];
+    p.conf = true;
+    salvar();
+    updatePartida(pi);
+    updateRanking();
+    updateTabBadge(gAtivo);
+    updateRodCount();
+    toast('Partida encerrada!', 'ok');
+}
+
+function acaoEditar(pi) {
+    G[gAtivo].partidas[pi].conf = false;
+    salvar();
+    updatePartida(pi);
+    updateRanking();
+    updateTabBadge(gAtivo);
+    updateRodCount();
+    toast('Partida reaberta para edição', 'info');
+}
+
+function acaoResetar() {
+    G[gAtivo] = criarGrupo();
+    salvar();
+    renderContent();
+    updateTabBadge(gAtivo);
+    toast('Grupo ' + gAtivo + ' resetado', 'info');
+}
+
+function acaoToggleNomes() {
+    nomesAberto = !nomesAberto;
+    const grid = document.querySelector('.ngrid');
+    const chev = document.querySelector('[data-acao="toggle-nomes"] .fa-chevron-down');
+    const btn = document.querySelector('[data-acao="toggle-nomes"]');
+    if (grid) grid.classList.toggle('shut', !nomesAberto);
+    if (chev) chev.style.transform = 'rotate(' + (nomesAberto ? 0 : -90) + 'deg)';
+    if (btn) btn.setAttribute('aria-expanded', String(nomesAberto));
+}
+
+document.getElementById('main').addEventListener('click', function(e) {
+    const btnC = e.target.closest('[data-acao="confirmar"]');
+    if (btnC) { acaoConfirmar(parseInt(btnC.dataset.pi)); return; }
+    const btnE = e.target.closest('[data-acao="editar"]');
+    if (btnE) { acaoEditar(parseInt(btnE.dataset.pi)); return; }
+    const btnN = e.target.closest('[data-acao="toggle-nomes"]');
+    if (btnN) { acaoToggleNomes(); return; }
+    const btnR = e.target.closest('[data-acao="resetar"]');
+    if (btnR) { acaoResetar(); return; }
+});
+
+document.getElementById('main').addEventListener('input', function(e) {
+    if (e.target.dataset.nomeIdx !== undefined) {
+        G[gAtivo].nomes[parseInt(e.target.dataset.nomeIdx)] = e.target.value;
+        salvar();
+        updateAllNameSpans();
+        updateRanking();
+        updateNomesCount();
+        return;
+    }
+    if (e.target.dataset.pi !== undefined && e.target.dataset.tm !== undefined) {
+        G[gAtivo].partidas[parseInt(e.target.dataset.pi)].placar[parseInt(e.target.dataset.tm) - 1] = e.target.value;
+        salvar();
+    }
+});
+
+initGrupos();
+renderTabs();
+renderContent();
+</script>
+</body>
+</html>
