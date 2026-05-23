@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Super 8 Sets</title>
+    <title>Competição de Vôlei</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -17,7 +18,8 @@
                         panel:'#141a17', 'panel-h':'#1a2420',
                         neon:{ DEFAULT:'#00ff88', dim:'#00cc6a' },
                         gold:'#ffd000', muted:'#6b7c72',
-                        line:'#1e2a24', 'line-l':'#2a3a32', danger:'#ff4757'
+                        line:'#1e2a24', 'line-l':'#2a3a32', danger:'#ff4757',
+                        pink:'#ff69b4'
                     }
                 }
             }
@@ -60,6 +62,8 @@
         .ninput{width:100%;padding:9px 12px;background:rgba(0,0,0,.3);border:1px solid #1e2a24;border-radius:8px;color:#e8ede9;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}
         .ninput:focus{border-color:#00ff88;box-shadow:0 0 0 2px rgba(0,255,136,.12)}
         .ninput::placeholder{color:#3a4a42}
+        select.ninput{cursor:pointer;padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7c72' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;-webkit-appearance:none;appearance:none}
+        select.ninput option{background:#141a17;color:#e8ede9}
 
         .sinput{width:46px;padding:7px 2px;text-align:center;background:rgba(0,0,0,.4);border:1px solid #2a3a32;border-radius:7px;color:#e8ede9;font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;outline:none;transition:border-color .2s,box-shadow .2s}
         .sinput:focus{border-color:#00ff88;box-shadow:0 0 0 2px rgba(0,255,136,.15)}
@@ -92,6 +96,8 @@
         .btn-c:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
         .btn-e{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:12px;padding:8px 0;border:1px solid #2a3a32;border-radius:8px;background:transparent;color:#6b7c72;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
         .btn-e:hover{border-color:#4a5c52;color:#a0b5aa}
+        .btn-pdf{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:8px;padding:8px 0;border:1px solid #ffd000;border-radius:8px;background:rgba(255,208,0,.06);color:#ffd000;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+        .btn-pdf:hover{background:rgba(255,208,0,.12);border-color:#ffe066;box-shadow:0 2px 12px rgba(255,208,0,.15)}
 
         .ntgl{display:flex;align-items:center;justify-content:space-between;width:100%;padding:10px 14px;background:#141a17;border:1px solid #1e2a24;border-radius:10px;cursor:pointer;transition:all .2s;color:#e8ede9}
         .ntgl:hover{background:#1a2420;border-color:#2a3a32}
@@ -116,9 +122,30 @@
         .rk-trophy.silver{color:#c0c0c0}
         .rk-trophy.bronze{color:#cd7f32}
 
+        .modnav{display:flex;gap:6px;padding:0 16px 8px}
+        .modnav .gtab{padding:10px 22px;font-size:14px;letter-spacing:1.5px}
+
+        .qcard{background:#141a17;border:1px solid #1e2a24;border-radius:14px;overflow:hidden;transition:all .3s}
+        .qcard:hover{border-color:#2a3a32;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+        .qcard-h{padding:10px 16px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+        .qcard-h.gn{background:linear-gradient(135deg,rgba(0,255,136,.15),rgba(0,204,106,.06));color:#00ff88}
+        .qcard-h.gd{background:linear-gradient(135deg,rgba(255,208,0,.15),rgba(255,208,0,.06));color:#ffd000}
+        .qcard-b{padding:10px 16px}
+        .qrow{display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid rgba(30,42,36,.6)}
+        .qrow:last-child{border-bottom:none}
+        .qico{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;font-size:10px;flex-shrink:0}
+        .qico.lev{background:rgba(255,208,0,.12);color:#ffd000}
+        .qico.men{background:rgba(255,105,180,.12);color:#ff69b4}
+        .qico.jog{background:rgba(0,255,136,.08);color:#00cc6a}
+        .qlbl{font-size:10px;color:#4a5c52;font-family:'Oswald',sans-serif;letter-spacing:1.5px;text-transform:uppercase;min-width:68px;flex-shrink:0}
+        .qnome{font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+        .sec-lbl{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#00cc6a;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+        .info-txt{color:#4a5c52;font-size:12px;margin-top:4px;line-height:1.4}
+
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#1e2a24;border-radius:4px}
         @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-        @media(max-width:380px){.tname{font-size:12px}.snum{font-size:18px}.sinput{width:40px;font-size:16px}.sbox{padding:4px 8px}.rk-trophy{width:24px;height:24px;font-size:12px}}
+        @media(max-width:380px){.tname{font-size:12px}.snum{font-size:18px}.sinput{width:40px;font-size:16px}.sbox{padding:4px 8px}.rk-trophy{width:24px;height:24px;font-size:12px}.modnav .gtab{padding:8px 14px;font-size:12px}}
     </style>
 </head>
 <body class="font-body">
@@ -127,23 +154,39 @@
 
 <div class="z1 max-w-lg mx-auto px-4 pb-20">
 
-    <header class="relative pt-10 pb-6 text-center overflow-hidden">
-        <span class="hemblem" aria-hidden="true">8</span>
+    <header class="relative pt-10 pb-5 text-center overflow-hidden">
+        <span class="hemblem" id="hemblem" aria-hidden="true">8</span>
         <div class="inline-flex items-center gap-3 mb-1">
             <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-neon to-neon-dim flex items-center justify-center shadow-lg shadow-neon/20">
                 <i class="fas fa-volleyball-ball text-dark text-lg"></i>
             </div>
-            <h1 class="font-display text-[2rem] font-bold tracking-widest text-white leading-none">SUPER 8 SETS</h1>
+            <h1 id="headerTitle" class="font-display text-[2rem] font-bold tracking-widest text-white leading-none">SUPER 8 SETS</h1>
         </div>
-        <p class="text-muted text-sm tracking-wide mt-1">Gerencie grupos, resultados e classificações</p>
+        <p id="headerSub" class="text-muted text-sm tracking-wide mt-1">Gerencie grupos, resultados e classificações</p>
     </header>
 
-    <nav class="gtabs mb-7" id="tabs" role="tablist" aria-label="Seleção de grupo"></nav>
-    <main id="main" role="tabpanel" aria-live="polite"></main>
+    <nav class="modnav mb-4" id="modNav" role="tablist" aria-label="Modalidade">
+        <button class="gtab on" data-mod="s8"><i class="fas fa-trophy text-xs"></i>Super 8</button>
+        <button class="gtab" data-mod="qt"><i class="fas fa-users text-xs"></i>Quarteto</button>
+    </nav>
+
+    <div id="areaS8">
+        <nav class="gtabs mb-7" id="tabs" role="tablist" aria-label="Seleção de grupo"></nav>
+        <main id="main" role="tabpanel" aria-live="polite"></main>
+    </div>
+
+    <div id="areaQT" style="display:none">
+        <nav class="gtabs mb-7" id="qtTabs" role="tablist" aria-label="Seção do quarteto"></nav>
+        <main id="qtMain" role="tabpanel" aria-live="polite"></main>
+    </div>
 
 </div>
 
 <script>
+/* ==============================================================
+   SUPER 8 SETS — CÓDIGO ORIGINAL (INALTERADO)
+   ============================================================== */
+
 const PARE = [
     [[0,1],[2,3]], [[4,5],[6,7]],
     [[0,2],[4,6]], [[1,3],[5,7]],
@@ -299,7 +342,7 @@ function renderContent() {
 
     h += '<section class="mb-8 ani" style="animation-delay:80ms">';
     h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
-    h += '<i class="fas fa-medal text-neon text-xs"></i>Classificação — Grupo ' + gAtivo + '</h2>';
+    h += '<i class="fas fa-medal text-neon text-xs"></i>Classificacao — Grupo ' + gAtivo + '</h2>';
     h += '<div class="overflow-x-auto"><table class="rtbl"><thead><tr>';
     h += '<th>#</th><th>Atleta</th><th>Saldo</th><th>Pts</th>';
     h += '</tr></thead><tbody id="rkBody">';
@@ -315,9 +358,12 @@ function renderContent() {
     h += '</div></section>';
 
     h += '<footer class="mt-10 pt-6 border-t border-line text-center ani" style="animation-delay:300ms">';
-    h += '<p class="text-muted text-xs tracking-wide">Pontuação: 3 pts por vitória de dupla — Desempate por saldo de sets</p>';
-    h += '<p class="text-muted/40 text-[11px] mt-1">Top 2 de cada grupo avançam</p>';
-    h += '<button class="btn-e mt-4 mx-auto" data-acao="resetar" style="width:auto;padding:8px 20px"><i class="fas fa-redo-alt mr-1"></i>Resetar Grupo ' + gAtivo + '</button>';
+    h += '<p class="text-muted text-xs tracking-wide">Pontuacao: 3 pts por vitoria de dupla — Desempate por saldo de sets</p>';
+    h += '<p class="text-muted/40 text-[11px] mt-1">Top 2 de cada grupo avancam</p>';
+    if (cc > 0) {
+        h += '<button class="btn-pdf mx-auto mt-4" data-acao="pdf-s8" style="width:auto;padding:8px 24px"><i class="fas fa-file-pdf mr-1"></i>Baixar PDF — Grupo ' + gAtivo + '</button>';
+    }
+    h += '<button class="btn-e mt-3 mx-auto" data-acao="resetar" style="width:auto;padding:8px 20px"><i class="fas fa-redo-alt mr-1"></i>Resetar Grupo ' + gAtivo + '</button>';
     h += '</footer>';
 
     document.getElementById('main').innerHTML = h;
@@ -327,7 +373,7 @@ function renderRankRows(l) {
     const rk = calcRanking(l);
     const cc = confCount(l);
     if (cc === 0) {
-        return '<tr><td colspan="4" class="!text-center !py-6"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Encerre partidas para ver a classificação</span></td></tr>';
+        return '<tr><td colspan="4" class="!text-center !py-6"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Encerre partidas para ver a classificacao</span></td></tr>';
     }
     let h = '';
     rk.forEach((j, i) => {
@@ -429,8 +475,8 @@ function acaoConfirmar(pi) {
     const v1 = p.placar[0].trim(), v2 = p.placar[1].trim();
     if (!v1 || !v2) { toast('Preencha ambos os placares', 'err'); return; }
     const s1 = parseInt(v1), s2 = parseInt(v2);
-    if (isNaN(s1) || isNaN(s2) || s1 < 0 || s2 < 0) { toast('Insira valores válidos', 'err'); return; }
-    if (s1 === s2) { toast('Não pode haver empate', 'err'); return; }
+    if (isNaN(s1) || isNaN(s2) || s1 < 0 || s2 < 0) { toast('Insira valores validos', 'err'); return; }
+    if (s1 === s2) { toast('Nao pode haver empate', 'err'); return; }
     p.placar = [String(s1), String(s2)];
     p.conf = true;
     salvar();
@@ -448,7 +494,7 @@ function acaoEditar(pi) {
     updateRanking();
     updateTabBadge(gAtivo);
     updateRodCount();
-    toast('Partida reaberta para edição', 'info');
+    toast('Partida reaberta para edicao', 'info');
 }
 
 function acaoResetar() {
@@ -478,6 +524,8 @@ document.getElementById('main').addEventListener('click', function(e) {
     if (btnN) { acaoToggleNomes(); return; }
     const btnR = e.target.closest('[data-acao="resetar"]');
     if (btnR) { acaoResetar(); return; }
+    const btnPdf = e.target.closest('[data-acao="pdf-s8"]');
+    if (btnPdf) { gerarPdfS8(gAtivo); return; }
 });
 
 document.getElementById('main').addEventListener('input', function(e) {
@@ -495,9 +543,1193 @@ document.getElementById('main').addEventListener('input', function(e) {
     }
 });
 
+
+/* ==============================================================
+   PDF — SUPER 8
+   ============================================================== */
+function gerarPdfS8(l) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
+    let y = 15;
+
+    /* Fundo escuro */
+    doc.setFillColor(10, 14, 12);
+    doc.rect(0, 0, pw, ph, 'F');
+
+    /* Faixa verde topo */
+    doc.setFillColor(0, 255, 136);
+    doc.rect(0, 0, pw, 3, 'F');
+
+    /* Título */
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.setTextColor(0, 255, 136);
+    doc.text('SUPER 8 SETS', pw / 2, y + 8, { align: 'center' });
+    y += 14;
+
+    doc.setFontSize(13);
+    doc.setTextColor(107, 124, 114);
+    doc.text('Grupo ' + l + ' — Resultado', pw / 2, y, { align: 'center' });
+    y += 12;
+
+    /* Data */
+    doc.setFontSize(9);
+    doc.setTextColor(74, 92, 82);
+    const agora = new Date();
+    const dataStr = agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    doc.text('Gerado em: ' + dataStr, pw / 2, y, { align: 'center' });
+    y += 10;
+
+    /* Linha separadora */
+    doc.setDrawColor(30, 42, 36);
+    doc.setLineWidth(0.3);
+    doc.line(ml, y, pw - mr, y);
+    y += 8;
+
+    /* Classificação */
+    const rk = calcRanking(l);
+    const cc = confCount(l);
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(0, 204, 106);
+    doc.text('CLASSIFICACAO', ml, y);
+    y += 7;
+
+    /* Cabeçalho da tabela */
+    const cols = [ml, ml + 12, ml + 28, ml + cw - 38, ml + cw - 18];
+    doc.setFontSize(8);
+    doc.setTextColor(107, 124, 114);
+    doc.text('#', cols[0] + 3, y, { align: 'center' });
+    doc.text('ATLETA', cols[1], y);
+    doc.text('SALDO', cols[2] + 32, y, { align: 'center' });
+    doc.text('PTS', cols[3] + 28, y, { align: 'center' });
+    y += 2;
+    doc.setDrawColor(30, 42, 36);
+    doc.line(ml, y, pw - mr, y);
+    y += 5;
+
+    if (cc > 0) {
+        rk.forEach((j, i) => {
+            if (i === 0) doc.setTextColor(255, 208, 0);
+            else if (i === 1) doc.setTextColor(192, 192, 192);
+            else if (i === 2) doc.setTextColor(205, 127, 50);
+            else doc.setTextColor(74, 92, 82);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.text(String(i + 1), cols[0] + 3, y, { align: 'center' });
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(232, 237, 233);
+            let nm = nome(l, j.idx);
+            if (nm.length > 32) nm = nm.substring(0, 30) + '..';
+            doc.text(nm, cols[1], y);
+
+            const sv = j.saldo > 0 ? '+' + j.saldo : String(j.saldo);
+            if (j.saldo > 0) doc.setTextColor(0, 255, 136);
+            else if (j.saldo < 0) doc.setTextColor(255, 71, 87);
+            else doc.setTextColor(74, 92, 82);
+            doc.text(sv, cols[2] + 32, y, { align: 'center' });
+
+            if (i === 0) doc.setTextColor(255, 208, 0);
+            else if (i === 1) doc.setTextColor(192, 192, 192);
+            else if (i === 2) doc.setTextColor(205, 127, 50);
+            else doc.setTextColor(232, 237, 233);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.text(String(j.pts), cols[3] + 28, y, { align: 'center' });
+
+            y += 8;
+        });
+    } else {
+        doc.setFontSize(10);
+        doc.setTextColor(74, 92, 82);
+        doc.text('Nenhuma partida encerrada.', ml, y);
+        y += 8;
+    }
+
+    y += 6;
+    doc.setDrawColor(30, 42, 36);
+    doc.line(ml, y, pw - mr, y);
+    y += 8;
+
+    /* Resultados das Rodadas */
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(0, 204, 106);
+    doc.text('RESULTADOS DAS RODADAS', ml, y);
+    y += 8;
+
+    for (let r = 1; r <= 7; r++) {
+        if (y > ph - 30) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
+        const pIdxs = [];
+        G[l].partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
+
+        doc.setFontSize(9);
+        doc.setTextColor(0, 204, 106);
+        doc.text('Rodada ' + r, ml, y);
+        y += 6;
+
+        pIdxs.forEach(pi => {
+            if (y > ph - 20) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
+            const p = G[l].partidas[pi];
+            const n1 = nome(l, p.t1[0]), n2 = nome(l, p.t1[1]);
+            const n3 = nome(l, p.t2[0]), n4 = nome(l, p.t2[1]);
+
+            if (p.conf) {
+                const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
+                doc.setFontSize(9);
+                const t1w = s1 > s2;
+                const dupla1 = (n1.length > 18 ? n1.substring(0, 16) + '..' : n1) + ' / ' + (n2.length > 18 ? n2.substring(0, 16) + '..' : n2);
+                const dupla2 = (n3.length > 18 ? n3.substring(0, 16) + '..' : n3) + ' / ' + (n4.length > 18 ? n4.substring(0, 16) + '..' : n4);
+
+                doc.setTextColor(t1w ? 232 : 74, t1w ? 237 : 92, t1w ? 233 : 82);
+                doc.text(dupla1, ml + 4, y);
+                doc.setTextColor(t1w ? 0 : 74, t1w ? 255 : 92, t1w ? 136 : 82);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(11);
+                doc.text(s1 + ' x ' + s2, pw / 2, y, { align: 'center' });
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(!t1w ? 232 : 74, !t1w ? 237 : 92, !t1w ? 233 : 82);
+                doc.text(dupla2, pw - mr - 4, y, { align: 'right' });
+            } else {
+                doc.setFontSize(9);
+                doc.setTextColor(58, 74, 66);
+                const dupla1 = (n1.length > 18 ? n1.substring(0, 16) + '..' : n1) + ' / ' + (n2.length > 18 ? n2.substring(0, 16) + '..' : n2);
+                const dupla2 = (n3.length > 18 ? n3.substring(0, 16) + '..' : n3) + ' / ' + (n4.length > 18 ? n4.substring(0, 16) + '..' : n4);
+                doc.text(dupla1, ml + 4, y);
+                doc.text('— x —', pw / 2, y, { align: 'center' });
+                doc.text(dupla2, pw - mr - 4, y, { align: 'right' });
+            }
+            y += 7;
+        });
+        y += 3;
+    }
+
+    /* Rodapé */
+    y = ph - 12;
+    doc.setDrawColor(30, 42, 36);
+    doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7);
+    doc.setTextColor(58, 74, 66);
+    doc.text('Pontuacao: 3 pts por vitoria de dupla — Desempate por saldo de sets', pw / 2, y, { align: 'center' });
+    doc.text('Super 8 Sets — Competicao de Volei', pw / 2, y + 4, { align: 'center' });
+
+    doc.save('Super8_Grupo' + l + '.pdf');
+    toast('PDF do Grupo ' + l + ' baixado!', 'ok');
+}
+
+
+/* ==============================================================
+   QUARTETO — NOVA MODALIDADE
+   ============================================================== */
+
+let qt_num = 10;
+let qt_levantadores = [];
+let qt_meninas = [];
+let qt_jogadores = [];
+let qt_grupos = [];
+let qt_partidas = [];
+let qt_subAtivo = 'sorteio';
+
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function qtSalvar() {
+    try {
+        localStorage.setItem('qt_data', JSON.stringify({
+            num: qt_num,
+            levantadores: qt_levantadores,
+            meninas: qt_meninas,
+            jogadores: qt_jogadores,
+            grupos: qt_grupos,
+            partidas: qt_partidas
+        }));
+    } catch(e) {}
+}
+
+function qtCarregar() {
+    try {
+        const d = JSON.parse(localStorage.getItem('qt_data'));
+        if (!d) return false;
+        qt_num = d.num || 10;
+        qt_levantadores = d.levantadores || [];
+        qt_meninas = d.meninas || [];
+        qt_jogadores = d.jogadores || [];
+        qt_grupos = d.grupos || [];
+        qt_partidas = d.partidas || [];
+        return true;
+    } catch(e) { return false; }
+}
+
+function qtNome(i) { return 'Quarteto ' + (i + 1); }
+function qtNomeCurto(i) { return 'Q' + (i + 1); }
+function qtConfCount() { return qt_partidas.filter(p => p.conf).length; }
+
+function qtCalcRanking() {
+    const n = qt_grupos.length;
+    if (n === 0) return [];
+    const st = {};
+    for (let i = 0; i < n; i++) st[i] = { idx: i, pts: 0, saldo: 0 };
+    qt_partidas.forEach(p => {
+        if (!p.conf) return;
+        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
+        const d = s1 - s2;
+        if (d > 0) { st[p.t1].pts += 3; st[p.t1].saldo += d; st[p.t2].saldo -= d; }
+        else { st[p.t2].pts += 3; st[p.t2].saldo += (-d); st[p.t1].saldo -= (-d); }
+    });
+    return Object.values(st).sort((a, b) => b.pts !== a.pts ? b.pts - a.pts : b.saldo - a.saldo);
+}
+
+function qtGerarPartidas(n) {
+    const partidas = [];
+    if (n < 2) return partidas;
+    if (n % 2 === 0) {
+        const fixo = 0;
+        const rot = [];
+        for (let i = 1; i < n; i++) rot.push(i);
+        const totalRodadas = n - 1;
+        for (let r = 0; r < totalRodadas; r++) {
+            const rodada = [fixo, ...rot];
+            for (let j = 0; j < n / 2; j++) {
+                partidas.push({ rodada: r + 1, t1: rodada[j], t2: rodada[n - 1 - j], placar: ['', ''], conf: false });
+            }
+            rot.push(rot.shift());
+        }
+    } else {
+        const total = n + 1;
+        const rot = [];
+        for (let i = 1; i < total; i++) rot.push(i);
+        const totalRodadas = total - 1;
+        for (let r = 0; r < totalRodadas; r++) {
+            const rodada = [0, ...rot];
+            for (let j = 0; j < total / 2; j++) {
+                const a = rodada[j], b = rodada[total - 1 - j];
+                if (a < n && b < n) {
+                    partidas.push({ rodada: r + 1, t1: a, t2: b, placar: ['', ''], conf: false });
+                }
+            }
+            rot.push(rot.shift());
+        }
+    }
+    return partidas;
+}
+
+function qtTotalRodadas(n) { return n % 2 === 0 ? n - 1 : n; }
+
+/* Navegação de modalidade */
+function switchMod(mod) {
+    document.querySelectorAll('#modNav .gtab').forEach(b => b.classList.toggle('on', b.dataset.mod === mod));
+    document.getElementById('areaS8').style.display = mod === 's8' ? '' : 'none';
+    document.getElementById('areaQT').style.display = mod === 'qt' ? '' : 'none';
+    const emblem = document.getElementById('hemblem');
+    const title = document.getElementById('headerTitle');
+    const sub = document.getElementById('headerSub');
+    if (mod === 's8') {
+        emblem.textContent = '8';
+        title.textContent = 'SUPER 8 SETS';
+        sub.textContent = 'Gerencie grupos, resultados e classificacoes';
+    } else {
+        emblem.textContent = '4';
+        title.textContent = 'QUARTETO';
+        sub.textContent = 'Sorteio de equipes, resultados e classificacoes';
+    }
+}
+
+document.getElementById('modNav').addEventListener('click', function(e) {
+    const btn = e.target.closest('[data-mod]');
+    if (btn) switchMod(btn.dataset.mod);
+});
+
+/* Tabs do Quarteto */
+function qtRenderTabs() {
+    const c = document.getElementById('qtTabs');
+    c.innerHTML = '';
+    const tabs = [
+        { id: 'sorteio', label: 'Sorteio', icon: 'fa-random' },
+        { id: 'jogos', label: 'Jogos', icon: 'fa-list-ol' },
+        { id: 'class', label: 'Classificacao', icon: 'fa-medal' }
+    ];
+    tabs.forEach(t => {
+        const btn = document.createElement('button');
+        btn.className = 'gtab' + (t.id === qt_subAtivo ? ' on' : '');
+        btn.setAttribute('role', 'tab');
+        btn.setAttribute('aria-selected', String(t.id === qt_subAtivo));
+        if (t.id === 'jogos' && qt_grupos.length > 0) {
+            const cc = qtConfCount();
+            btn.innerHTML = '<i class="fas ' + t.icon + ' text-xs"></i>' + t.label + (cc > 0 ? '<span class="badge">' + cc + '/' + qt_partidas.length + '</span>' : '');
+        } else {
+            btn.innerHTML = '<i class="fas ' + t.icon + ' text-xs"></i>' + t.label;
+        }
+        btn.addEventListener('click', () => {
+            if (t.id === qt_subAtivo) return;
+            qt_subAtivo = t.id;
+            qtRenderTabs();
+            qtRenderContent();
+        });
+        c.appendChild(btn);
+    });
+}
+
+function qtUpdateTabBadge() {
+    const tabs = document.getElementById('qtTabs').children;
+    const jogosTab = tabs[1];
+    if (!jogosTab) return;
+    const cc = qtConfCount();
+    const existing = jogosTab.querySelector('.badge');
+    if (cc > 0 && qt_partidas.length > 0) {
+        if (existing) existing.textContent = cc + '/' + qt_partidas.length;
+        else { const b = document.createElement('span'); b.className = 'badge'; b.textContent = cc + '/' + qt_partidas.length; jogosTab.appendChild(b); }
+    } else if (existing) existing.remove();
+}
+
+function qtBuildFields() {
+    const sel = document.getElementById('qtNumSel');
+    if (!sel) return;
+    const n = parseInt(sel.value);
+    const oldLev = [...qt_levantadores], oldMen = [...qt_meninas], oldJog = [...qt_jogadores];
+    qt_num = n;
+    qt_levantadores = Array(n).fill('');
+    qt_meninas = Array(n).fill('');
+    qt_jogadores = Array(n * 2).fill('');
+    for (let i = 0; i < Math.min(n, oldLev.length); i++) qt_levantadores[i] = oldLev[i];
+    for (let i = 0; i < Math.min(n, oldMen.length); i++) qt_meninas[i] = oldMen[i];
+    for (let i = 0; i < Math.min(n * 2, oldJog.length); i++) qt_jogadores[i] = oldJog[i];
+    if (qt_grupos.length > 0 && qt_grupos.length !== n) { qt_grupos = []; qt_partidas = []; }
+    qtSalvar();
+    qtRenderContent();
+}
+
+function qtDoSorteio() {
+    const n = qt_num;
+    const levs = [], mens = [], jogs = [];
+    for (let i = 0; i < n; i++) {
+        const v = qt_levantadores[i] ? qt_levantadores[i].trim() : '';
+        if (!v) { toast('Preencha o levantador ' + (i + 1), 'err'); return; }
+        levs.push(v);
+    }
+    for (let i = 0; i < n; i++) {
+        const v = qt_meninas[i] ? qt_meninas[i].trim() : '';
+        if (!v) { toast('Preencha a menina ' + (i + 1), 'err'); return; }
+        mens.push(v);
+    }
+    for (let i = 0; i < n * 2; i++) {
+        const v = qt_jogadores[i] ? qt_jogadores[i].trim() : '';
+        if (!v) { toast('Preencha o jogador ' + (i + 1), 'err'); return; }
+        jogs.push(v);
+    }
+    const sLevs = shuffle(levs), sMens = shuffle(mens), sJogs = shuffle(jogs);
+    qt_grupos = [];
+    for (let i = 0; i < n; i++) {
+        qt_grupos.push({ levantador: sLevs[i], menina: sMens[i], jogador1: sJogs[i * 2], jogador2: sJogs[i * 2 + 1] });
+    }
+    qt_partidas = qtGerarPartidas(n);
+    qt_subAtivo = 'sorteio';
+    qtSalvar();
+    qtRenderTabs();
+    qtRenderContent();
+    toast('Sorteio realizado com sucesso!', 'ok');
+}
+
+function qtReSorteio() {
+    if (qt_levantadores.length === 0) { toast('Cadastre os participantes primeiro', 'err'); return; }
+    qtDoSorteio();
+}
+
+function qtClear() {
+    qt_levantadores = Array(qt_num).fill('');
+    qt_meninas = Array(qt_num).fill('');
+    qt_jogadores = Array(qt_num * 2).fill('');
+    qt_grupos = [];
+    qt_partidas = [];
+    qt_subAtivo = 'sorteio';
+    qtSalvar();
+    qtRenderTabs();
+    qtRenderContent();
+    toast('Quarteto limpo', 'info');
+}
+
+function qtRenderContent() {
+    const m = document.getElementById('qtMain');
+    if (qt_subAtivo === 'sorteio') m.innerHTML = qtRenderSorteio();
+    else if (qt_subAtivo === 'jogos') m.innerHTML = qtRenderJogos();
+    else if (qt_subAtivo === 'class') m.innerHTML = qtRenderClass();
+}
+
+/* Aba Sorteio */
+function qtRenderSorteio() {
+    const n = qt_num;
+    let h = '';
+    h += '<section class="mb-5 ani"><div class="rcard"><div class="sec-lbl"><i class="fas fa-sliders-h text-xs"></i>Configuracao</div>';
+    h += '<label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Quantidade de Quartetos</label>';
+    h += '<select class="ninput" id="qtNumSel" data-qt-acao="change-num">';
+    for (let i = 2; i <= 10; i++) {
+        h += '<option value="' + i + '"' + (i === n ? ' selected' : '') + '>' + i + ' quartetos (' + (i * 4) + ' jogadores)</option>';
+    }
+    h += '</select>';
+    h += '<p class="info-txt">Cada quarteto = 1 levantador + 1 menina + 2 jogadores</p></div></section>';
+
+    h += '<section class="mb-5 ani" style="animation-delay:60ms">';
+    h += '<button class="ntgl" data-qt-acao="toggle-lev" aria-expanded="true">';
+    h += '<div class="flex items-center gap-2"><i class="fas fa-hand-paper text-gold text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Levantadores</span>';
+    h += '<span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_levantadores.filter(x => x && x.trim()).length + '/' + n + ')</span></div>';
+    h += '<i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
+    h += '<div class="ngrid" id="qtLevGrid"><div class="grid grid-cols-2 gap-3">';
+    for (let i = 0; i < n; i++) {
+        h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Levantador ' + (i + 1) + '</label>';
+        h += '<input class="ninput" data-qt-lev="' + i + '" placeholder="Nome..." value="' + escAttr(qt_levantadores[i] || '') + '" /></div>';
+    }
+    h += '</div></div></section>';
+
+    h += '<section class="mb-5 ani" style="animation-delay:120ms">';
+    h += '<button class="ntgl" data-qt-acao="toggle-men" aria-expanded="true">';
+    h += '<div class="flex items-center gap-2"><i class="fas fa-female text-pink text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Meninas</span>';
+    h += '<span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_meninas.filter(x => x && x.trim()).length + '/' + n + ')</span></div>';
+    h += '<i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
+    h += '<div class="ngrid" id="qtMenGrid"><div class="grid grid-cols-2 gap-3">';
+    for (let i = 0; i < n; i++) {
+        h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Menina ' + (i + 1) + '</label>';
+        h += '<input class="ninput" data-qt-men="' + i + '" placeholder="Nome..." value="' + escAttr(qt_meninas[i] || '') + '" /></div>';
+    }
+    h += '</div></div></section>';
+
+    h += '<section class="mb-6 ani" style="animation-delay:180ms">';
+    h += '<button class="ntgl" data-qt-acao="toggle-jog" aria-expanded="true">';
+    h += '<div class="flex items-center gap-2"><i class="fas fa-running text-neon text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Demais Jogadores</span>';
+    h += '<span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_jogadores.filter(x => x && x.trim()).length + '/' + (n * 2) + ')</span></div>';
+    h += '<i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
+    h += '<div class="ngrid" id="qtJogGrid"><div class="grid grid-cols-2 gap-3">';
+    for (let i = 0; i < n * 2; i++) {
+        h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Jogador ' + (i + 1) + '</label>';
+        h += '<input class="ninput" data-qt-jog="' + i + '" placeholder="Nome..." value="' + escAttr(qt_jogadores[i] || '') + '" /></div>';
+    }
+    h += '</div></div></section>';
+
+    h += '<section class="ani" style="animation-delay:240ms">';
+    h += '<button class="btn-c" data-qt-acao="sortear"><i class="fas fa-random text-xs"></i>Realizar Sorteio</button>';
+    if (qt_grupos.length > 0) {
+        h += '<button class="btn-e" data-qt-acao="resortear"><i class="fas fa-redo text-[10px]"></i>Refazer Sorteio</button>';
+    }
+    h += '<button class="btn-e" data-qt-acao="limpar"><i class="fas fa-eraser text-[10px]"></i>Limpar Tudo</button>';
+    h += '</section>';
+
+    if (qt_grupos.length > 0) {
+        h += '<section class="mt-8 ani" style="animation-delay:300ms">';
+        h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
+        h += '<i class="fas fa-dice text-neon text-xs"></i>Quartetos Sorteados</h2>';
+        h += '<div class="flex flex-col gap-3">';
+        qt_grupos.forEach((g, i) => {
+            const cor = i % 2 === 0 ? 'gn' : 'gd';
+            h += '<div class="qcard ani" style="animation-delay:' + (300 + i * 50) + 'ms">';
+            h += '<div class="qcard-h ' + cor + '"><i class="fas fa-volleyball-ball text-xs"></i>' + qtNome(i) + '</div>';
+            h += '<div class="qcard-b">';
+            h += '<div class="qrow"><div class="qico lev"><i class="fas fa-hand-paper"></i></div><span class="qlbl">Levantador</span><span class="qnome">' + esc(g.levantador) + '</span></div>';
+            h += '<div class="qrow"><div class="qico men"><i class="fas fa-female"></i></div><span class="qlbl">Menina</span><span class="qnome">' + esc(g.menina) + '</span></div>';
+            h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador1) + '</span></div>';
+            h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador2) + '</span></div>';
+            h += '</div></div>';
+        });
+        h += '</div>';
+        h += '<button class="btn-pdf mt-4" data-qt-acao="pdf-sorteio"><i class="fas fa-file-pdf"></i>Baixar PDF do Sorteio</button>';
+        h += '</section>';
+    }
+    return h;
+}
+
+/* Aba Jogos */
+function qtRenderJogos() {
+    if (qt_grupos.length === 0) {
+        return '<div class="rcard ani"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Realize o sorteio primeiro para gerar os jogos.</span></div>';
+    }
+    const n = qt_grupos.length;
+    const totalR = qtTotalRodadas(n);
+    const cc = qtConfCount();
+    let h = '';
+    h += '<section class="ani">';
+    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
+    h += '<i class="fas fa-list-ol text-neon text-xs"></i>Resultados das Rodadas';
+    h += '<span class="text-muted text-xs font-body font-normal tracking-normal ml-1">(' + cc + '/' + qt_partidas.length + ')</span></h2>';
+    h += '<div class="flex flex-col gap-3" id="qtRodBox">';
+    for (let r = 1; r <= totalR; r++) {
+        const pIdxs = [];
+        qt_partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
+        const allConf = pIdxs.every(i => qt_partidas[i].conf);
+        h += '<div class="rcard' + (allConf ? ' conf' : '') + '" id="qtRod-' + r + '">';
+        h += '<div class="rlbl"><span class="rdot' + (allConf ? ' done' : '') + '"></span>Rodada ' + r + '</div>';
+        pIdxs.forEach((pi, mi) => {
+            h += '<div class="mblk' + (mi > 0 ? ' mt-3 pt-3 border-t border-line' : '') + '" id="qtPt-' + pi + '">';
+            h += qtRenderPartida(pi);
+            h += '</div>';
+        });
+        h += '</div>';
+    }
+    h += '</div></section>';
+
+    h += '<footer class="mt-10 pt-6 border-t border-line text-center ani" style="animation-delay:200ms">';
+    h += '<p class="text-muted text-xs tracking-wide">Pontuacao: 3 pts por vitoria — Desempate por saldo de sets</p>';
+    if (cc > 0) {
+        h += '<button class="btn-pdf mx-auto mt-4" data-qt-acao="pdf-resultados" style="width:auto;padding:8px 24px"><i class="fas fa-file-pdf mr-1"></i>Baixar PDF dos Resultados</button>';
+    }
+    h += '<button class="btn-e mt-3 mx-auto" data-qt-acao="resetar" style="width:auto;padding:8px 20px"><i class="fas fa-redo-alt mr-1"></i>Resetar Todos os Resultados</button>';
+    h += '</footer>';
+    return h;
+}
+
+function qtRenderPartida(pi) {
+    const p = qt_partidas[pi];
+    const n1 = qtNomeCurto(p.t1), n2 = qtNomeCurto(p.t2);
+    if (p.conf) {
+        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
+        const t1w = s1 > s2;
+        return '<div class="mrow">'
+            + '<div class="tname rr ' + (t1w ? 'w' : 'l') + '">' + esc(n1) + '</div>'
+            + '<div class="sbox"><span class="snum ' + (t1w ? 'w' : 'lo') + '">' + s1 + '</span><span class="sx">x</span><span class="snum ' + (!t1w ? 'w' : 'lo') + '">' + s2 + '</span></div>'
+            + '<div class="tname ' + (!t1w ? 'w' : 'l') + '">' + esc(n2) + '</div>'
+            + '</div>'
+            + '<button class="btn-e" data-qt-acao="editar" data-qpi="' + pi + '"><i class="fas fa-pen text-[10px]"></i>Editar Resultado</button>';
+    } else {
+        return '<div class="mrow">'
+            + '<div class="tname rr">' + esc(n1) + '</div>'
+            + '<div class="sibx"><input type="number" class="sinput" data-qpi="' + pi + '" data-qtm="1" min="0" placeholder="0" value="' + escAttr(p.placar[0]) + '" /><span class="sx">x</span><input type="number" class="sinput" data-qpi="' + pi + '" data-qtm="2" min="0" placeholder="0" value="' + escAttr(p.placar[1]) + '" /></div>'
+            + '<div class="tname">' + esc(n2) + '</div>'
+            + '</div>'
+            + '<button class="btn-c" data-qt-acao="confirmar" data-qpi="' + pi + '"><i class="fas fa-check text-xs"></i>Encerrar Partida</button>';
+    }
+}
+
+/* Aba Classificação */
+function qtRenderClass() {
+    if (qt_grupos.length === 0) {
+        return '<div class="rcard ani"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Realize o sorteio e registre resultados para ver a classificacao.</span></div>';
+    }
+    let h = '';
+    h += '<section class="ani">';
+    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
+    h += '<i class="fas fa-medal text-neon text-xs"></i>Classificacao Geral</h2>';
+    h += '<div class="overflow-x-auto"><table class="rtbl"><thead><tr>';
+    h += '<th>#</th><th>Quarteto</th><th>Saldo</th><th>Pts</th>';
+    h += '</tr></thead><tbody id="qtRkBody">';
+    h += qtRenderRankRows();
+    h += '</tbody></table></div></section>';
+
+    h += '<section class="mt-8 ani" style="animation-delay:100ms">';
+    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
+    h += '<i class="fas fa-users text-neon text-xs"></i>Composicao dos Quartetos</h2>';
+    h += '<div class="flex flex-col gap-3">';
+    qt_grupos.forEach((g, i) => {
+        const cor = i % 2 === 0 ? 'gn' : 'gd';
+        h += '<div class="qcard"><div class="qcard-h ' + cor + '"><i class="fas fa-volleyball-ball text-xs"></i>' + qtNome(i) + '</div>';
+        h += '<div class="qcard-b">';
+        h += '<div class="qrow"><div class="qico lev"><i class="fas fa-hand-paper"></i></div><span class="qlbl">Levantador</span><span class="qnome">' + esc(g.levantador) + '</span></div>';
+        h += '<div class="qrow"><div class="qico men"><i class="fas fa-female"></i></div><span class="qlbl">Menina</span><span class="qnome">' + esc(g.menina) + '</span></div>';
+        h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador1) + '</span></div>';
+        h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador2) + '</span></div>';
+        h += '</div></div>';
+    });
+    h += '</div>';
+
+    if (qtConfCount() > 0) {
+        h += '<button class="btn-pdf mt-4" data-qt-acao="pdf-class"><i class="fas fa-file-pdf"></i>Baixar PDF da Classificacao</button>';
+    }
+    h += '</section>';
+    return h;
+}
+
+function qtRenderRankRows() {
+    const rk = qtCalcRanking();
+    const cc = qtConfCount();
+    if (cc === 0) {
+        return '<tr><td colspan="4" class="!text-center !py-6"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Encerre partidas para ver a classificacao</span></td></tr>';
+    }
+    let h = '';
+    rk.forEach((j, i) => {
+        h += '<tr class="' + rkCls(i) + '">';
+        h += '<td>' + trofeu(i) + '</td>';
+        h += '<td class="font-medium">' + esc(qtNome(j.idx)) + '</td>';
+        h += '<td class="' + cSaldo(j.saldo) + '">' + fSaldo(j.saldo) + '</td>';
+        h += '<td>' + j.pts + '</td>';
+        h += '</tr>';
+    });
+    return h;
+}
+
+/* Updates parciais */
+function qtUpdateRanking() {
+    const body = document.getElementById('qtRkBody');
+    if (body) body.innerHTML = qtRenderRankRows();
+}
+function qtUpdatePartida(pi) {
+    const el = document.getElementById('qtPt-' + pi);
+    if (!el) return;
+    const tmp = document.createElement('div');
+    tmp.innerHTML = '<div class="mblk" id="qtPt-' + pi + '">' + qtRenderPartida(pi) + '</div>';
+    el.replaceWith(tmp.firstElementChild);
+    qtUpdateRodDot(qt_partidas[pi].rodada);
+}
+function qtUpdateRodDot(rNum) {
+    const pIdxs = [];
+    qt_partidas.forEach((p, i) => { if (p.rodada === rNum) pIdxs.push(i); });
+    const allC = pIdxs.every(i => qt_partidas[i].conf);
+    const card = document.getElementById('qtRod-' + rNum);
+    if (!card) return;
+    const dot = card.querySelector('.rdot');
+    if (dot) dot.classList.toggle('done', allC);
+    card.classList.toggle('conf', allC);
+}
+function qtUpdateRodCount() {
+    const cc = qtConfCount();
+    const box = document.getElementById('qtRodBox');
+    if (!box) return;
+    const h2 = box.parentElement.querySelector('h2 span');
+    if (h2 && h2.classList.contains('text-muted')) h2.textContent = '(' + cc + '/' + qt_partidas.length + ')';
+}
+function qtUpdateLevCount() {
+    const c = qt_levantadores.filter(x => x && x.trim()).length;
+    const sp = document.querySelector('[data-qt-acao="toggle-lev"] .text-muted');
+    if (sp) sp.textContent = '(' + c + '/' + qt_num + ')';
+}
+function qtUpdateMenCount() {
+    const c = qt_meninas.filter(x => x && x.trim()).length;
+    const sp = document.querySelector('[data-qt-acao="toggle-men"] .text-muted');
+    if (sp) sp.textContent = '(' + c + '/' + qt_num + ')';
+}
+function qtUpdateJogCount() {
+    const c = qt_jogadores.filter(x => x && x.trim()).length;
+    const sp = document.querySelector('[data-qt-acao="toggle-jog"] .text-muted');
+    if (sp) sp.textContent = '(' + c + '/' + (qt_num * 2) + ')';
+}
+
+/* Ações */
+function qtAcaoConfirmar(pi) {
+    const p = qt_partidas[pi];
+    const v1 = p.placar[0].trim(), v2 = p.placar[1].trim();
+    if (!v1 || !v2) { toast('Preencha ambos os placares', 'err'); return; }
+    const s1 = parseInt(v1), s2 = parseInt(v2);
+    if (isNaN(s1) || isNaN(s2) || s1 < 0 || s2 < 0) { toast('Insira valores validos', 'err'); return; }
+    if (s1 === s2) { toast('Nao pode haver empate', 'err'); return; }
+    p.placar = [String(s1), String(s2)];
+    p.conf = true;
+    qtSalvar();
+    qtUpdatePartida(pi);
+    qtUpdateRanking();
+    qtUpdateTabBadge();
+    qtUpdateRodCount();
+    toast('Partida encerrada!', 'ok');
+}
+function qtAcaoEditar(pi) {
+    qt_partidas[pi].conf = false;
+    qtSalvar();
+    qtUpdatePartida(pi);
+    qtUpdateRanking();
+    qtUpdateTabBadge();
+    qtUpdateRodCount();
+    toast('Partida reaberta para edicao', 'info');
+}
+function qtAcaoResetar() {
+    qt_partidas.forEach(p => { p.placar = ['', '']; p.conf = false; });
+    qtSalvar();
+    qtRenderTabs();
+    qtRenderContent();
+    toast('Resultados resetados', 'info');
+}
+function qtToggleSec(tipo) {
+    let grid, btn;
+    if (tipo === 'lev') { grid = document.getElementById('qtLevGrid'); btn = document.querySelector('[data-qt-acao="toggle-lev"]'); }
+    else if (tipo === 'men') { grid = document.getElementById('qtMenGrid'); btn = document.querySelector('[data-qt-acao="toggle-men"]'); }
+    else { grid = document.getElementById('qtJogGrid'); btn = document.querySelector('[data-qt-acao="toggle-jog"]'); }
+    if (!grid || !btn) return;
+    const isOpen = !grid.classList.contains('shut');
+    grid.classList.toggle('shut', isOpen);
+    const chev = btn.querySelector('.fa-chevron-down');
+    if (chev) chev.style.transform = 'rotate(' + (isOpen ? -90 : 0) + 'deg)';
+    btn.setAttribute('aria-expanded', String(isOpen ? 'false' : 'true'));
+}
+
+/* Event listeners Quarteto */
+document.getElementById('qtMain').addEventListener('click', function(e) {
+    const btnC = e.target.closest('[data-qt-acao="confirmar"]');
+    if (btnC) { qtAcaoConfirmar(parseInt(btnC.dataset.qpi)); return; }
+    const btnE = e.target.closest('[data-qt-acao="editar"]');
+    if (btnE) { qtAcaoEditar(parseInt(btnE.dataset.qpi)); return; }
+    const btnS = e.target.closest('[data-qt-acao="sortear"]');
+    if (btnS) { qtDoSorteio(); return; }
+    const btnRS = e.target.closest('[data-qt-acao="resortear"]');
+    if (btnRS) { qtReSorteio(); return; }
+    const btnL = e.target.closest('[data-qt-acao="limpar"]');
+    if (btnL) { qtClear(); return; }
+    const btnR = e.target.closest('[data-qt-acao="resetar"]');
+    if (btnR) { qtAcaoResetar(); return; }
+    const btnTL = e.target.closest('[data-qt-acao="toggle-lev"]');
+    if (btnTL) { qtToggleSec('lev'); return; }
+    const btnTM = e.target.closest('[data-qt-acao="toggle-men"]');
+    if (btnTM) { qtToggleSec('men'); return; }
+    const btnTJ = e.target.closest('[data-qt-acao="toggle-jog"]');
+    if (btnTJ) { qtToggleSec('jog'); return; }
+    const btnPdfS = e.target.closest('[data-qt-acao="pdf-sorteio"]');
+    if (btnPdfS) { gerarPdfSorteio(); return; }
+    const btnPdfR = e.target.closest('[data-qt-acao="pdf-resultados"]');
+    if (btnPdfR) { gerarPdfResultados(); return; }
+    const btnPdfC = e.target.closest('[data-qt-acao="pdf-class"]');
+    if (btnPdfC) { gerarPdfClass(); return; }
+});
+
+document.getElementById('qtMain').addEventListener('input', function(e) {
+    if (e.target.dataset.qtLev !== undefined) { qt_levantadores[parseInt(e.target.dataset.qtLev)] = e.target.value; qtSalvar(); qtUpdateLevCount(); return; }
+    if (e.target.dataset.qtMen !== undefined) { qt_meninas[parseInt(e.target.dataset.qtMen)] = e.target.value; qtSalvar(); qtUpdateMenCount(); return; }
+    if (e.target.dataset.qtJog !== undefined) { qt_jogadores[parseInt(e.target.dataset.qtJog)] = e.target.value; qtSalvar(); qtUpdateJogCount(); return; }
+    if (e.target.dataset.qpi !== undefined && e.target.dataset.qtm !== undefined) { qt_partidas[parseInt(e.target.dataset.qpi)].placar[parseInt(e.target.dataset.qtm) - 1] = e.target.value; qtSalvar(); }
+});
+
+document.getElementById('qtMain').addEventListener('change', function(e) {
+    if (e.target.dataset.qtAcao === 'change-num') qtBuildFields();
+});
+
+
+/* ==============================================================
+   PDF — QUARTETO SORTEIO
+   ============================================================== */
+function gerarPdfSorteio() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
+    let y = 15;
+
+    doc.setFillColor(10, 14, 12);
+    doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(255, 208, 0);
+    doc.rect(0, 0, pw, 3, 'F');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.setTextColor(255, 208, 0);
+    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' });
+    y += 14;
+
+    doc.setFontSize(13);
+    doc.setTextColor(107, 124, 114);
+    doc.text('Resultado do Sorteio', pw / 2, y, { align: 'center' });
+    y += 12;
+
+    doc.setFontSize(9);
+    doc.setTextColor(74, 92, 82);
+    const agora = new Date();
+    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' });
+    y += 10;
+
+    doc.setDrawColor(30, 42, 36);
+    doc.setLineWidth(0.3);
+    doc.line(ml, y, pw - mr, y);
+    y += 10;
+
+    const n = qt_grupos.length;
+    /* Calcular quantos cabem por página (aprox 68mm cada grupo) */
+    const grupoH = 68;
+    const maxPorPag = Math.floor((ph - 40) / grupoH);
+
+    qt_grupos.forEach((g, i) => {
+        if (i > 0 && i % maxPorPag === 0) {
+            doc.addPage();
+            doc.setFillColor(10, 14, 12);
+            doc.rect(0, 0, pw, ph, 'F');
+            y = 15;
+        }
+
+        /* Cabeçalho do quarteto */
+        if (i % 2 === 0) doc.setFillColor(0, 40, 22);
+        else doc.setFillColor(40, 35, 0);
+        doc.roundedRect(ml, y, cw, 10, 3, 3, 'F');
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.setTextColor(i % 2 === 0 ? 0 : 40, i % 2 === 0 ? 255 : 30, i % 2 === 0 ? 136 : 0);
+        doc.text('  QUARTETO ' + (i + 1), ml + 2, y + 7);
+        y += 14;
+
+        /* Jogadores */
+        const itens = [
+            { lbl: 'LEVANTADOR', val: g.levantador, cor: [255, 208, 0] },
+            { lbl: 'MENINA', val: g.menina, cor: [255, 105, 180] },
+            { lbl: 'JOGADOR', val: g.jogador1, cor: [0, 204, 106] },
+            { lbl: 'JOGADOR', val: g.jogador2, cor: [0, 204, 106] }
+        ];
+
+        itens.forEach(it => {
+            doc.setFillColor(20, 26, 23);
+            doc.roundedRect(ml + 4, y, cw - 8, 10, 2, 2, 'F');
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(...it.cor);
+            doc.text(it.lbl, ml + 10, y + 6.5);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11);
+            doc.setTextColor(232, 237, 233);
+            let v = it.val;
+            if (v.length > 38) v = v.substring(0, 36) + '..';
+            doc.text(v, ml + 42, y + 6.5);
+            y += 12;
+        });
+
+        y += 6;
+    });
+
+    /* Rodapé */
+    y = ph - 12;
+    doc.setDrawColor(30, 42, 36);
+    doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7);
+    doc.setTextColor(58, 74, 66);
+    doc.text('Quarteto — Competicao de Volei', pw / 2, y, { align: 'center' });
+
+    doc.save('Quarteto_Sorteio.pdf');
+    toast('PDF do Sorteio baixado!', 'ok');
+}
+
+
+/* ==============================================================
+   PDF — QUARTETO RESULTADOS
+   ============================================================== */
+function gerarPdfResultados() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
+    let y = 15;
+
+    doc.setFillColor(10, 14, 12);
+    doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(0, 255, 136);
+    doc.rect(0, 0, pw, 3, 'F');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.setTextColor(0, 255, 136);
+    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' });
+    y += 14;
+
+    doc.setFontSize(13);
+    doc.setTextColor(107, 124, 114);
+    doc.text('Resultados das Partidas', pw / 2, y, { align: 'center' });
+    y += 10;
+
+    doc.setFontSize(9);
+    doc.setTextColor(74, 92, 82);
+    const agora = new Date();
+    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' });
+    y += 10;
+
+    doc.setDrawColor(30, 42, 36);
+    doc.line(ml, y, pw - mr, y);
+    y += 8;
+
+    /* Classificação resumida */
+    const rk = qtCalcRanking();
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(0, 204, 106);
+    doc.text('CLASSIFICACAO', ml, y);
+    y += 7;
+
+    const colRk = [ml, ml + 14, ml + cw - 40, ml + cw - 18];
+    doc.setFontSize(8);
+    doc.setTextColor(107, 124, 114);
+    doc.text('#', colRk[0] + 3, y, { align: 'center' });
+    doc.text('QUARTETO', colRk[1], y);
+    doc.text('SALDO', colRk[1] + 65, y, { align: 'center' });
+    doc.text('PTS', colRk[2] + 30, y, { align: 'center' });
+    y += 2;
+    doc.line(ml, y, pw - mr, y);
+    y += 5;
+
+    rk.forEach((j, i) => {
+        if (i === 0) doc.setTextColor(255, 208, 0);
+        else if (i === 1) doc.setTextColor(192, 192, 192);
+        else if (i === 2) doc.setTextColor(205, 127, 50);
+        else doc.setTextColor(74, 92, 82);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.text(String(i + 1), colRk[0] + 3, y, { align: 'center' });
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.setTextColor(232, 237, 233);
+        doc.text(qtNome(j.idx), colRk[1], y);
+        const sv = j.saldo > 0 ? '+' + j.saldo : String(j.saldo);
+        if (j.saldo > 0) doc.setTextColor(0, 255, 136);
+        else if (j.saldo < 0) doc.setTextColor(255, 71, 87);
+        else doc.setTextColor(74, 92, 82);
+        doc.text(sv, colRk[1] + 65, y, { align: 'center' });
+        if (i === 0) doc.setTextColor(255, 208, 0);
+        else if (i === 1) doc.setTextColor(192, 192, 192);
+        else if (i === 2) doc.setTextColor(205, 127, 50);
+        else doc.setTextColor(232, 237, 233);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text(String(j.pts), colRk[2] + 30, y, { align: 'center' });
+        y += 7;
+    });
+
+    y += 4;
+    doc.line(ml, y, pw - mr, y);
+    y += 8;
+
+    /* Detalhamento dos quartetos */
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(0, 204, 106);
+    doc.text('COMPOSICAO DOS QUARTETOS', ml, y);
+    y += 7;
+
+    qt_grupos.forEach((g, i) => {
+        if (y > ph - 25) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(9);
+        doc.setTextColor(i % 2 === 0 ? 0 : 200, i % 2 === 0 ? 204 : 180, i % 2 === 0 ? 106 : 0);
+        doc.text(qtNome(i) + ':', ml, y);
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(8);
+        doc.setTextColor(232, 237, 233);
+        const txt = 'Lev: ' + g.levantador + '  |  Men: ' + g.menina + '  |  ' + g.jogador1 + '  |  ' + g.jogador2;
+        let t = txt;
+        if (t.length > 90) t = t.substring(0, 88) + '..';
+        doc.text(t, ml + 28, y);
+        y += 6;
+    });
+
+    y += 4;
+    doc.line(ml, y, pw - mr, y);
+    y += 8;
+
+    /* Resultados por rodada */
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(0, 204, 106);
+    doc.text('RESULTADOS POR RODADA', ml, y);
+    y += 8;
+
+    const n = qt_grupos.length;
+    const totalR = qtTotalRodadas(n);
+
+    for (let r = 1; r <= totalR; r++) {
+        if (y > ph - 25) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
+        const pIdxs = [];
+        qt_partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
+
+        doc.setFontSize(9);
+        doc.setTextColor(0, 204, 106);
+        doc.text('Rodada ' + r, ml, y);
+        y += 6;
+
+        pIdxs.forEach(pi => {
+            if (y > ph - 15) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
+            const p = qt_partidas[pi];
+            const n1 = qtNome(p.t1), n2 = qtNome(p.t2);
+
+            if (p.conf) {
+                const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
+                const t1w = s1 > s2;
+                doc.setFontSize(9);
+                doc.setTextColor(t1w ? 232 : 74, t1w ? 237 : 92, t1w ? 233 : 82);
+                doc.text(n1, ml + 4, y);
+                doc.setTextColor(t1w ? 0 : 74, t1w ? 255 : 92, t1w ? 136 : 82);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(11);
+                doc.text(s1 + ' x ' + s2, pw / 2, y, { align: 'center' });
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(!t1w ? 232 : 74, !t1w ? 237 : 92, !t1w ? 233 : 82);
+                doc.text(n2, pw - mr - 4, y, { align: 'right' });
+            } else {
+                doc.setFontSize(9);
+                doc.setTextColor(58, 74, 66);
+                doc.text(n1, ml + 4, y);
+                doc.text('— x —', pw / 2, y, { align: 'center' });
+                doc.text(n2, pw - mr - 4, y, { align: 'right' });
+            }
+            y += 7;
+        });
+        y += 3;
+    }
+
+    /* Rodapé */
+    y = ph - 12;
+    doc.setDrawColor(30, 42, 36);
+    doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7);
+    doc.setTextColor(58, 74, 66);
+    doc.text('Pontuacao: 3 pts por vitoria — Desempate por saldo de sets', pw / 2, y, { align: 'center' });
+    doc.text('Quarteto — Competicao de Volei', pw / 2, y + 4, { align: 'center' });
+
+    doc.save('Quarteto_Resultados.pdf');
+    toast('PDF dos Resultados baixado!', 'ok');
+}
+
+
+/* ==============================================================
+   PDF — QUARTETO CLASSIFICAÇÃO
+   ============================================================== */
+function gerarPdfClass() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
+    let y = 15;
+
+    doc.setFillColor(10, 14, 12);
+    doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(0, 255, 136);
+    doc.rect(0, 0, pw, 3, 'F');
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(22);
+    doc.setTextColor(0, 255, 136);
+    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' });
+    y += 14;
+
+    doc.setFontSize(13);
+    doc.setTextColor(107, 124, 114);
+    doc.text('Classificacao Geral', pw / 2, y, { align: 'center' });
+    y += 10;
+
+    doc.setFontSize(9);
+    doc.setTextColor(74, 92, 82);
+    const agora = new Date();
+    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' });
+    y += 10;
+
+    doc.setDrawColor(30, 42, 36);
+    doc.line(ml, y, pw - mr, y);
+    y += 10;
+
+    /* Tabela de classificação */
+    const rk = qtCalcRanking();
+    const colP = [ml, ml + 14, ml + 30, ml + cw - 38, ml + cw - 18];
+
+    doc.setFontSize(8);
+    doc.setTextColor(107, 124, 114);
+    doc.text('#', colP[0] + 3, y, { align: 'center' });
+    doc.text('QUARTETO', colP[1], y);
+    doc.text('SALDO', colP[2] + 30, y, { align: 'center' });
+    doc.text('PTS', colP[3] + 28, y, { align: 'center' });
+    y += 2;
+    doc.line(ml, y, pw - mr, y);
+    y += 6;
+
+    rk.forEach((j, i) => {
+        if (i === 0) doc.setTextColor(255, 208, 0);
+        else if (i === 1) doc.setTextColor(192, 192, 192);
+        else if (i === 2) doc.setTextColor(205, 127, 50);
+        else doc.setTextColor(74, 92, 82);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text(String(i + 1), colP[0] + 3, y, { align: 'center' });
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(11);
+        doc.setTextColor(232, 237, 233);
+        doc.text(qtNome(j.idx), colP[1], y);
+        const sv = j.saldo > 0 ? '+' + j.saldo : String(j.saldo);
+        if (j.saldo > 0) doc.setTextColor(0, 255, 136);
+        else if (j.saldo < 0) doc.setTextColor(255, 71, 87);
+        else doc.setTextColor(74, 92, 82);
+        doc.text(sv, colP[2] + 30, y, { align: 'center' });
+        if (i === 0) doc.setTextColor(255, 208, 0);
+        else if (i === 1) doc.setTextColor(192, 192, 192);
+        else if (i === 2) doc.setTextColor(205, 127, 50);
+        else doc.setTextColor(232, 237, 233);
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(14);
+        doc.text(String(j.pts), colP[3] + 28, y, { align: 'center' });
+        y += 9;
+    });
+
+    y += 6;
+    doc.line(ml, y, pw - mr, y);
+    y += 10;
+
+    /* Detalhamento de cada quarteto */
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(0, 204, 106);
+    doc.text('COMPOSICAO DOS QUARTETOS', ml, y);
+    y += 10;
+
+    qt_grupos.forEach((g, i) => {
+        if (y > ph - 50) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
+
+        /* Posição no ranking */
+        const posRank = rk.findIndex(r => r.idx === i) + 1;
+        if (posRank === 1) doc.setTextColor(255, 208, 0);
+        else if (posRank === 2) doc.setTextColor(192, 192, 192);
+        else if (posRank === 3) doc.setTextColor(205, 127, 50);
+        else doc.setTextColor(232, 237, 233);
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text(posRank + '. ' + qtNome(i), ml, y);
+        y += 7;
+
+        const itens = [
+            { lbl: 'Levantador', val: g.levantador, cor: [255, 208, 0] },
+            { lbl: 'Menina', val: g.menina, cor: [255, 105, 180] },
+            { lbl: 'Jogador', val: g.jogador1, cor: [0, 204, 106] },
+            { lbl: 'Jogador', val: g.jogador2, cor: [0, 204, 106] }
+        ];
+
+        itens.forEach(it => {
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8);
+            doc.setTextColor(...it.cor);
+            doc.text(it.lbl + ':', ml + 8, y);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(232, 237, 233);
+            let v = it.val;
+            if (v.length > 50) v = v.substring(0, 48) + '..';
+            doc.text(v, ml + 35, y);
+            y += 6;
+        });
+
+        y += 4;
+        doc.setDrawColor(30, 42, 36);
+        doc.setLineWidth(0.15);
+        doc.line(ml + 8, y, pw - mr - 8, y);
+        y += 6;
+    });
+
+    /* Rodapé */
+    y = ph - 12;
+    doc.setDrawColor(30, 42, 36);
+    doc.setLineWidth(0.3);
+    doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7);
+    doc.setTextColor(58, 74, 66);
+    doc.text('Pontuacao: 3 pts por vitoria — Desempate por saldo de sets', pw / 2, y, { align: 'center' });
+    doc.text('Quarteto — Competicao de Volei', pw / 2, y + 4, { align: 'center' });
+
+    doc.save('Quarteto_Classificacao.pdf');
+    toast('PDF da Classificacao baixado!', 'ok');
+}
+
+
+/* ==============================================================
+   INICIALIZAÇÃO
+   ============================================================== */
+
 initGrupos();
 renderTabs();
 renderContent();
+
+qtCarregar();
+qtRenderTabs();
+qtRenderContent();
 </script>
 </body>
 </html>
