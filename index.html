@@ -32,6 +32,24 @@
         body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,136,.013) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,.013) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
         .z1{position:relative;z-index:1}
 
+        /* === TELA DE LOGIN === */
+        .login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:#0a0e0c}
+        .login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(0,255,136,.08) 0%,transparent 60%)}
+        .login-box{position:relative;width:340px;max-width:90vw;animation:fu .5s ease}
+        .login-card{background:#141a17;border:1px solid #1e2a24;border-radius:20px;padding:36px 28px;text-align:center}
+        .login-icon{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#00ff88,#00cc6a);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 6px 30px rgba(0,255,136,.3)}
+        .login-icon i{font-size:1.6rem;color:#0a0e0c}
+        .login-title{font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:6px}
+        .login-sub{color:#6b7c72;font-size:.85rem;margin-bottom:24px;line-height:1.4}
+        .login-input{width:100%;padding:12px 16px;background:rgba(0,0,0,.4);border:1px solid #2a3a32;border-radius:10px;color:#e8ede9;font-family:'DM Sans',sans-serif;font-size:1rem;outline:none;transition:border-color .2s,box-shadow .2s;text-align:center;letter-spacing:3px;font-size:1.1rem}
+        .login-input:focus{border-color:#00ff88;box-shadow:0 0 0 3px rgba(0,255,136,.12)}
+        .login-input::placeholder{color:#2a3a32;letter-spacing:1px;font-size:.9rem}
+        .login-btn{width:100%;margin-top:16px;padding:13px 0;border:none;border-radius:10px;background:linear-gradient(135deg,#00ff88,#00cc6a);color:#0a0e0c;font-family:'Oswald',sans-serif;font-weight:700;font-size:14px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+        .login-btn:hover{box-shadow:0 4px 24px rgba(0,255,136,.35);transform:translateY(-1px)}
+        .login-btn:active{transform:translateY(0)}
+        .login-err{color:#ff4757;font-size:.8rem;margin-top:10px;min-height:20px;transition:opacity .2s}
+        .login-hint{color:#3a4a42;font-size:.7rem;margin-top:16px}
+
         .gtabs{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}
         .gtabs::-webkit-scrollbar{display:none}
         .gtab{flex-shrink:0;padding:9px 18px;border-radius:10px;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:1.2px;text-transform:uppercase;cursor:pointer;transition:all .25s;background:#141a17;color:#6b7c72;border:1px solid #1e2a24;outline:none;display:flex;align-items:center;gap:7px}
@@ -143,6 +161,22 @@
         .sec-lbl{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#00cc6a;margin-bottom:12px;display:flex;align-items:center;gap:8px}
         .info-txt{color:#4a5c52;font-size:12px;margin-top:4px;line-height:1.4}
 
+        /* Botão de config/sair no header */
+        .hdr-actions{display:flex;gap:6px;align-items:center}
+        .hdr-btn{width:36px;height:36px;border-radius:10px;border:1px solid #1e2a24;background:#141a17;color:#6b7c72;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:13px}
+        .hdr-btn:hover{background:#1a2420;border-color:#2a3a32;color:#a0b5aa}
+        .hdr-btn.danger:hover{border-color:#ff4757;color:#ff4757;background:rgba(255,71,87,.06)}
+
+        /* Modal */
+        .modal-overlay{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
+        .modal-overlay.show{opacity:1;pointer-events:auto}
+        .modal-box{background:#141a17;border:1px solid #1e2a24;border-radius:16px;padding:28px 24px;width:340px;max-width:90vw;transform:scale(.92);transition:transform .25s}
+        .modal-overlay.show .modal-box{transform:scale(1)}
+        .modal-title{font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:16px;text-align:center}
+
+        /* Link compartilhado */
+        .share-link{width:100%;padding:10px 12px;background:rgba(0,0,0,.4);border:1px solid #2a3a32;border-radius:8px;color:#00ff88;font-family:'DM Sans',sans-serif;font-size:.78rem;word-break:break-all;outline:none;resize:none;line-height:1.5;min-height:60px}
+
         ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#1e2a24;border-radius:4px}
         @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
         @media(max-width:380px){.tname{font-size:12px}.snum{font-size:18px}.sinput{width:40px;font-size:16px}.sbox{padding:4px 8px}.rk-trophy{width:24px;height:24px;font-size:12px}.modnav .gtab{padding:8px 14px;font-size:12px}}
@@ -152,17 +186,75 @@
 
 <div id="toastBox" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-<div class="z1 max-w-lg mx-auto px-4 pb-20">
+<!-- ===== TELA DE LOGIN ===== -->
+<div id="loginScreen" class="login-screen" style="display:none">
+    <div class="login-box">
+        <div class="login-card">
+            <div class="login-icon"><i class="fas fa-lock" id="loginIcon"></i></div>
+            <h1 class="login-title" id="loginTitle">Acesso Restrito</h1>
+            <p class="login-sub" id="loginSub">Digite a senha para acessar a competicao</p>
+            <input type="password" class="login-input" id="loginPass" placeholder="Senha" autocomplete="off" />
+            <div class="login-err" id="loginErr"></div>
+            <button class="login-btn" id="loginBtn">Entrar</button>
+            <p class="login-hint" id="loginHint"></p>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL COMPARTILHAR ===== -->
+<div class="modal-overlay" id="modalShare">
+    <div class="modal-box">
+        <h2 class="modal-title"><i class="fas fa-share-alt text-neon mr-2 text-sm"></i>Compartilhar Acesso</h2>
+        <p class="text-muted text-xs mb-3 text-center">Envie este link para alguem acessar. Para revogar o acesso, basta alterar sua senha.</p>
+        <textarea class="share-link" id="shareLink" readonly></textarea>
+        <button class="btn-c mt-3" id="copyLinkBtn"><i class="fas fa-copy text-xs"></i>Copiar Link</button>
+        <button class="btn-e mt-2" id="closeShareBtn">Fechar</button>
+    </div>
+</div>
+
+<!-- ===== MODAL ALTERAR SENHA ===== -->
+<div class="modal-overlay" id="modalSenha">
+    <div class="modal-box">
+        <h2 class="modal-title"><i class="fas fa-key text-gold mr-2 text-sm"></i>Alterar Senha</h2>
+        <p class="text-muted text-xs mb-4 text-center">Ao alterar, todos os links compartilhados anteriormente serao invalidados.</p>
+        <div class="mb-3">
+            <label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Senha Atual</label>
+            <input type="password" class="ninput" id="senhaAtual" placeholder="Senha atual" />
+        </div>
+        <div class="mb-3">
+            <label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Nova Senha</label>
+            <input type="password" class="ninput" id="senhaNova" placeholder="Nova senha" />
+        </div>
+        <div class="mb-4">
+            <label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Confirmar Nova Senha</label>
+            <input type="password" class="ninput" id="senhaConf" placeholder="Confirmar nova senha" />
+        </div>
+        <div class="text-danger text-xs mb-3" id="senhaErr" style="min-height:18px"></div>
+        <button class="btn-c" id="salvarSenhaBtn"><i class="fas fa-check text-xs"></i>Salvar Nova Senha</button>
+        <button class="btn-e mt-2" id="closeSenhaBtn">Cancelar</button>
+    </div>
+</div>
+
+<!-- ===== APP PRINCIPAL ===== -->
+<div class="z1 max-w-lg mx-auto px-4 pb-20" id="appPrincipal" style="display:none">
 
     <header class="relative pt-10 pb-5 text-center overflow-hidden">
         <span class="hemblem" id="hemblem" aria-hidden="true">8</span>
+        <div class="flex items-center justify-between mb-4">
+            <div></div>
+            <div class="hdr-actions">
+                <button class="hdr-btn" id="btnShare" title="Compartilhar acesso"><i class="fas fa-share-alt"></i></button>
+                <button class="hdr-btn" id="btnSenha" title="Alterar senha"><i class="fas fa-key"></i></button>
+                <button class="hdr-btn danger" id="btnSair" title="Sair"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
         <div class="inline-flex items-center gap-3 mb-1">
             <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-neon to-neon-dim flex items-center justify-center shadow-lg shadow-neon/20">
                 <i class="fas fa-volleyball-ball text-dark text-lg"></i>
             </div>
             <h1 id="headerTitle" class="font-display text-[2rem] font-bold tracking-widest text-white leading-none">SUPER 8 SETS</h1>
         </div>
-        <p id="headerSub" class="text-muted text-sm tracking-wide mt-1">Gerencie grupos, resultados e classificações</p>
+        <p id="headerSub" class="text-muted text-sm tracking-wide mt-1">Gerencie grupos, resultados e classificacoes</p>
     </header>
 
     <nav class="modnav mb-4" id="modNav" role="tablist" aria-label="Modalidade">
@@ -184,7 +276,224 @@
 
 <script>
 /* ==============================================================
-   SUPER 8 SETS — CÓDIGO ORIGINAL (INALTERADO)
+   SISTEMA DE SENHA / ACESSO
+   ============================================================== */
+function simpleHash(str) {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) {
+        const c = str.charCodeAt(i);
+        h = ((h << 5) - h) + c;
+        h = h & h;
+    }
+    return 'h' + Math.abs(h).toString(36);
+}
+
+function getSenhaHash() {
+    try { return localStorage.getItem('app_senha_hash') || ''; } catch(e) { return ''; }
+}
+
+function setSenhaHash(hash) {
+    try { localStorage.setItem('app_senha_hash', hash); } catch(e) {}
+}
+
+function isLogado() {
+    try { return sessionStorage.getItem('app_logado') === '1'; } catch(e) { return false; }
+}
+
+function fazerLogin() {
+    try { sessionStorage.setItem('app_logado', '1'); } catch(e) {}
+}
+
+function fazerLogout() {
+    try { sessionStorage.removeItem('app_logado'); } catch(e) {}
+}
+
+function verificarAcesso() {
+    const hashSalvo = getSenhaHash();
+
+    /* Primeiro acesso: criar senha */
+    if (!hashSalvo) {
+        mostrarTelaLogin('setup');
+        return;
+    }
+
+    /* Verificar token na URL */
+    const urlParams = new URLSearchParams(window.location.hash.substring(1));
+    const token = urlParams.get('token');
+    if (token && token === hashSalvo) {
+        fazerLogin();
+        mostrarApp();
+        return;
+    }
+
+    /* Verificar sessão */
+    if (isLogado()) {
+        mostrarApp();
+        return;
+    }
+
+    /* Mostrar login */
+    mostrarTelaLogin('login');
+}
+
+function mostrarTelaLogin(tipo) {
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('appPrincipal').style.display = 'none';
+
+    const icon = document.getElementById('loginIcon');
+    const title = document.getElementById('loginTitle');
+    const sub = document.getElementById('loginSub');
+    const btn = document.getElementById('loginBtn');
+    const hint = document.getElementById('loginHint');
+    const err = document.getElementById('loginErr');
+    const inp = document.getElementById('loginPass');
+    err.textContent = '';
+    inp.value = '';
+
+    if (tipo === 'setup') {
+        icon.className = 'fas fa-shield-alt';
+        title.textContent = 'Configurar Senha';
+        sub.textContent = 'Defina uma senha para proteger o acesso. Voce podera compartilhar links com acesso.';
+        btn.textContent = 'Criar Senha';
+        hint.textContent = 'Essa senha sera exigida em todos os acessos futuros.';
+        btn.onclick = function() { criarSenha(); };
+    } else {
+        icon.className = 'fas fa-lock';
+        title.textContent = 'Acesso Restrito';
+        sub.textContent = 'Digite a senha para acessar a competicao';
+        btn.textContent = 'Entrar';
+        hint.textContent = '';
+        btn.onclick = function() { entrarComSenha(); };
+    }
+
+    inp.onkeydown = function(e) {
+        if (e.key === 'Enter') btn.click();
+    };
+    setTimeout(function() { inp.focus(); }, 100);
+}
+
+function criarSenha() {
+    const inp = document.getElementById('loginPass');
+    const err = document.getElementById('loginErr');
+    const senha = inp.value.trim();
+
+    if (senha.length < 3) {
+        err.textContent = 'A senha deve ter pelo menos 3 caracteres';
+        return;
+    }
+
+    const hash = simpleHash(senha);
+    setSenhaHash(hash);
+    fazerLogin();
+    mostrarApp();
+    toast('Senha criada com sucesso!', 'ok');
+}
+
+function entrarComSenha() {
+    const inp = document.getElementById('loginPass');
+    const err = document.getElementById('loginErr');
+    const senha = inp.value.trim();
+    const hash = simpleHash(senha);
+    const hashSalvo = getSenhaHash();
+
+    if (hash !== hashSalvo) {
+        err.textContent = 'Senha incorreta';
+        inp.value = '';
+        inp.focus();
+        return;
+    }
+
+    fazerLogin();
+    mostrarApp();
+}
+
+function mostrarApp() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appPrincipal').style.display = '';
+    initApp();
+}
+
+/* Compartilhar link */
+document.getElementById('btnShare').addEventListener('click', function() {
+    const hash = getSenhaHash();
+    const base = window.location.origin + window.location.pathname;
+    const link = base + '#token=' + hash;
+    document.getElementById('shareLink').value = link;
+    document.getElementById('modalShare').classList.add('show');
+});
+
+document.getElementById('copyLinkBtn').addEventListener('click', function() {
+    const ta = document.getElementById('shareLink');
+    ta.select();
+    ta.setSelectionRange(0, 99999);
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(ta.value).then(function() {
+            toast('Link copiado!', 'ok');
+        });
+    } else {
+        document.execCommand('copy');
+        toast('Link copiado!', 'ok');
+    }
+});
+
+document.getElementById('closeShareBtn').addEventListener('click', function() {
+    document.getElementById('modalShare').classList.remove('show');
+});
+
+document.getElementById('modalShare').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('show');
+});
+
+/* Alterar senha */
+document.getElementById('btnSenha').addEventListener('click', function() {
+    document.getElementById('senhaAtual').value = '';
+    document.getElementById('senhaNova').value = '';
+    document.getElementById('senhaConf').value = '';
+    document.getElementById('senhaErr').textContent = '';
+    document.getElementById('modalSenha').classList.add('show');
+});
+
+document.getElementById('closeSenhaBtn').addEventListener('click', function() {
+    document.getElementById('modalSenha').classList.remove('show');
+});
+
+document.getElementById('modalSenha').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('show');
+});
+
+document.getElementById('salvarSenhaBtn').addEventListener('click', function() {
+    const err = document.getElementById('senhaErr');
+    const atual = document.getElementById('senhaAtual').value.trim();
+    const nova = document.getElementById('senhaNova').value.trim();
+    const conf = document.getElementById('senhaConf').value.trim();
+
+    if (simpleHash(atual) !== getSenhaHash()) {
+        err.textContent = 'Senha atual incorreta';
+        return;
+    }
+    if (nova.length < 3) {
+        err.textContent = 'A nova senha deve ter pelo menos 3 caracteres';
+        return;
+    }
+    if (nova !== conf) {
+        err.textContent = 'A confirmacao nao bate com a nova senha';
+        return;
+    }
+
+    setSenhaHash(simpleHash(nova));
+    document.getElementById('modalSenha').classList.remove('show');
+    toast('Senha alterada! Links anteriores foram invalidados.', 'ok');
+});
+
+/* Sair */
+document.getElementById('btnSair').addEventListener('click', function() {
+    fazerLogout();
+    mostrarTelaLogin('login');
+});
+
+
+/* ==============================================================
+   SUPER 8 SETS
    ============================================================== */
 
 const PARE = [
@@ -202,6 +511,7 @@ const LETRAS = 'ABCDEFGH'.split('');
 let gAtivo = 'A';
 let G = {};
 let nomesAberto = true;
+let appIniciado = false;
 
 function criarGrupo() {
     return {
@@ -553,62 +863,31 @@ function gerarPdfS8(l) {
     const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
     let y = 15;
 
-    /* Fundo escuro */
-    doc.setFillColor(10, 14, 12);
-    doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(0, 255, 136); doc.rect(0, 0, pw, 3, 'F');
 
-    /* Faixa verde topo */
-    doc.setFillColor(0, 255, 136);
-    doc.rect(0, 0, pw, 3, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.setTextColor(0, 255, 136);
+    doc.text('SUPER 8 SETS', pw / 2, y + 8, { align: 'center' }); y += 14;
+    doc.setFontSize(13); doc.setTextColor(107, 124, 114);
+    doc.text('Grupo ' + l + ' — Resultado', pw / 2, y, { align: 'center' }); y += 12;
 
-    /* Título */
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.setTextColor(0, 255, 136);
-    doc.text('SUPER 8 SETS', pw / 2, y + 8, { align: 'center' });
-    y += 14;
-
-    doc.setFontSize(13);
-    doc.setTextColor(107, 124, 114);
-    doc.text('Grupo ' + l + ' — Resultado', pw / 2, y, { align: 'center' });
-    y += 12;
-
-    /* Data */
-    doc.setFontSize(9);
-    doc.setTextColor(74, 92, 82);
+    doc.setFontSize(9); doc.setTextColor(74, 92, 82);
     const agora = new Date();
-    const dataStr = agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    doc.text('Gerado em: ' + dataStr, pw / 2, y, { align: 'center' });
-    y += 10;
+    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' }); y += 10;
 
-    /* Linha separadora */
-    doc.setDrawColor(30, 42, 36);
-    doc.setLineWidth(0.3);
-    doc.line(ml, y, pw - mr, y);
-    y += 8;
+    doc.setDrawColor(30, 42, 36); doc.setLineWidth(0.3); doc.line(ml, y, pw - mr, y); y += 8;
 
-    /* Classificação */
-    const rk = calcRanking(l);
-    const cc = confCount(l);
+    const rk = calcRanking(l); const cc = confCount(l);
 
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(0, 204, 106);
-    doc.text('CLASSIFICACAO', ml, y);
-    y += 7;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0, 204, 106);
+    doc.text('CLASSIFICACAO', ml, y); y += 7;
 
-    /* Cabeçalho da tabela */
-    const cols = [ml, ml + 12, ml + 28, ml + cw - 38, ml + cw - 18];
-    doc.setFontSize(8);
-    doc.setTextColor(107, 124, 114);
-    doc.text('#', cols[0] + 3, y, { align: 'center' });
-    doc.text('ATLETA', cols[1], y);
-    doc.text('SALDO', cols[2] + 32, y, { align: 'center' });
-    doc.text('PTS', cols[3] + 28, y, { align: 'center' });
-    y += 2;
-    doc.setDrawColor(30, 42, 36);
-    doc.line(ml, y, pw - mr, y);
-    y += 5;
+    doc.setFontSize(8); doc.setTextColor(107, 124, 114);
+    doc.text('#', ml + 3, y, { align: 'center' });
+    doc.text('ATLETA', ml + 16, y);
+    doc.text('SALDO', ml + cw - 38, y, { align: 'center' });
+    doc.text('PTS', ml + cw - 10, y, { align: 'center' });
+    y += 2; doc.line(ml, y, pw - mr, y); y += 5;
 
     if (cc > 0) {
         rk.forEach((j, i) => {
@@ -616,116 +895,62 @@ function gerarPdfS8(l) {
             else if (i === 1) doc.setTextColor(192, 192, 192);
             else if (i === 2) doc.setTextColor(205, 127, 50);
             else doc.setTextColor(74, 92, 82);
-
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(11);
-            doc.text(String(i + 1), cols[0] + 3, y, { align: 'center' });
-
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
-            doc.setTextColor(232, 237, 233);
-            let nm = nome(l, j.idx);
-            if (nm.length > 32) nm = nm.substring(0, 30) + '..';
-            doc.text(nm, cols[1], y);
-
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+            doc.text(String(i + 1), ml + 3, y, { align: 'center' });
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(232, 237, 233);
+            let nm = nome(l, j.idx); if (nm.length > 32) nm = nm.substring(0, 30) + '..';
+            doc.text(nm, ml + 16, y);
             const sv = j.saldo > 0 ? '+' + j.saldo : String(j.saldo);
-            if (j.saldo > 0) doc.setTextColor(0, 255, 136);
-            else if (j.saldo < 0) doc.setTextColor(255, 71, 87);
-            else doc.setTextColor(74, 92, 82);
-            doc.text(sv, cols[2] + 32, y, { align: 'center' });
-
-            if (i === 0) doc.setTextColor(255, 208, 0);
-            else if (i === 1) doc.setTextColor(192, 192, 192);
-            else if (i === 2) doc.setTextColor(205, 127, 50);
-            else doc.setTextColor(232, 237, 233);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(12);
-            doc.text(String(j.pts), cols[3] + 28, y, { align: 'center' });
-
-            y += 8;
+            if (j.saldo > 0) doc.setTextColor(0, 255, 136); else if (j.saldo < 0) doc.setTextColor(255, 71, 87); else doc.setTextColor(74, 92, 82);
+            doc.text(sv, ml + cw - 38, y, { align: 'center' });
+            if (i === 0) doc.setTextColor(255, 208, 0); else if (i === 1) doc.setTextColor(192, 192, 192); else if (i === 2) doc.setTextColor(205, 127, 50); else doc.setTextColor(232, 237, 233);
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
+            doc.text(String(j.pts), ml + cw - 10, y, { align: 'center' }); y += 8;
         });
-    } else {
-        doc.setFontSize(10);
-        doc.setTextColor(74, 92, 82);
-        doc.text('Nenhuma partida encerrada.', ml, y);
-        y += 8;
-    }
+    } else { doc.setFontSize(10); doc.setTextColor(74, 92, 82); doc.text('Nenhuma partida encerrada.', ml, y); y += 8; }
 
-    y += 6;
-    doc.setDrawColor(30, 42, 36);
-    doc.line(ml, y, pw - mr, y);
-    y += 8;
+    y += 6; doc.line(ml, y, pw - mr, y); y += 8;
 
-    /* Resultados das Rodadas */
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(0, 204, 106);
-    doc.text('RESULTADOS DAS RODADAS', ml, y);
-    y += 8;
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0, 204, 106);
+    doc.text('RESULTADOS DAS RODADAS', ml, y); y += 8;
 
     for (let r = 1; r <= 7; r++) {
         if (y > ph - 30) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
-        const pIdxs = [];
-        G[l].partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
-
-        doc.setFontSize(9);
-        doc.setTextColor(0, 204, 106);
-        doc.text('Rodada ' + r, ml, y);
-        y += 6;
-
+        const pIdxs = []; G[l].partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
+        doc.setFontSize(9); doc.setTextColor(0, 204, 106); doc.text('Rodada ' + r, ml, y); y += 6;
         pIdxs.forEach(pi => {
             if (y > ph - 20) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
             const p = G[l].partidas[pi];
-            const n1 = nome(l, p.t1[0]), n2 = nome(l, p.t1[1]);
-            const n3 = nome(l, p.t2[0]), n4 = nome(l, p.t2[1]);
-
+            const n1 = nome(l, p.t1[0]), n2 = nome(l, p.t1[1]), n3 = nome(l, p.t2[0]), n4 = nome(l, p.t2[1]);
             if (p.conf) {
-                const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
-                doc.setFontSize(9);
-                const t1w = s1 > s2;
-                const dupla1 = (n1.length > 18 ? n1.substring(0, 16) + '..' : n1) + ' / ' + (n2.length > 18 ? n2.substring(0, 16) + '..' : n2);
-                const dupla2 = (n3.length > 18 ? n3.substring(0, 16) + '..' : n3) + ' / ' + (n4.length > 18 ? n4.substring(0, 16) + '..' : n4);
-
-                doc.setTextColor(t1w ? 232 : 74, t1w ? 237 : 92, t1w ? 233 : 82);
-                doc.text(dupla1, ml + 4, y);
-                doc.setTextColor(t1w ? 0 : 74, t1w ? 255 : 92, t1w ? 136 : 82);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-                doc.text(s1 + ' x ' + s2, pw / 2, y, { align: 'center' });
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(9);
-                doc.setTextColor(!t1w ? 232 : 74, !t1w ? 237 : 92, !t1w ? 233 : 82);
-                doc.text(dupla2, pw - mr - 4, y, { align: 'right' });
+                const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]); const t1w = s1 > s2;
+                const d1 = (n1.length > 18 ? n1.substring(0, 16) + '..' : n1) + ' / ' + (n2.length > 18 ? n2.substring(0, 16) + '..' : n2);
+                const d2 = (n3.length > 18 ? n3.substring(0, 16) + '..' : n3) + ' / ' + (n4.length > 18 ? n4.substring(0, 16) + '..' : n4);
+                doc.setFontSize(9); doc.setTextColor(t1w ? 232 : 74, t1w ? 237 : 92, t1w ? 233 : 82); doc.text(d1, ml + 4, y);
+                doc.setTextColor(t1w ? 0 : 74, t1w ? 255 : 92, t1w ? 136 : 82); doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+                doc.text(s1 + ' x ' + s2, pw / 2, y, { align: 'center' }); doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+                doc.setTextColor(!t1w ? 232 : 74, !t1w ? 237 : 92, !t1w ? 233 : 82); doc.text(d2, pw - mr - 4, y, { align: 'right' });
             } else {
-                doc.setFontSize(9);
-                doc.setTextColor(58, 74, 66);
-                const dupla1 = (n1.length > 18 ? n1.substring(0, 16) + '..' : n1) + ' / ' + (n2.length > 18 ? n2.substring(0, 16) + '..' : n2);
-                const dupla2 = (n3.length > 18 ? n3.substring(0, 16) + '..' : n3) + ' / ' + (n4.length > 18 ? n4.substring(0, 16) + '..' : n4);
-                doc.text(dupla1, ml + 4, y);
-                doc.text('— x —', pw / 2, y, { align: 'center' });
-                doc.text(dupla2, pw - mr - 4, y, { align: 'right' });
+                doc.setFontSize(9); doc.setTextColor(58, 74, 66);
+                const d1 = (n1.length > 18 ? n1.substring(0, 16) + '..' : n1) + ' / ' + (n2.length > 18 ? n2.substring(0, 16) + '..' : n2);
+                const d2 = (n3.length > 18 ? n3.substring(0, 16) + '..' : n3) + ' / ' + (n4.length > 18 ? n4.substring(0, 16) + '..' : n4);
+                doc.text(d1, ml + 4, y); doc.text('— x —', pw / 2, y, { align: 'center' }); doc.text(d2, pw - mr - 4, y, { align: 'right' });
             }
             y += 7;
-        });
-        y += 3;
+        }); y += 3;
     }
 
-    /* Rodapé */
-    y = ph - 12;
-    doc.setDrawColor(30, 42, 36);
-    doc.line(ml, y - 4, pw - mr, y - 4);
-    doc.setFontSize(7);
-    doc.setTextColor(58, 74, 66);
+    y = ph - 12; doc.setDrawColor(30, 42, 36); doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7); doc.setTextColor(58, 74, 66);
     doc.text('Pontuacao: 3 pts por vitoria de dupla — Desempate por saldo de sets', pw / 2, y, { align: 'center' });
     doc.text('Super 8 Sets — Competicao de Volei', pw / 2, y + 4, { align: 'center' });
-
     doc.save('Super8_Grupo' + l + '.pdf');
     toast('PDF do Grupo ' + l + ' baixado!', 'ok');
 }
 
 
 /* ==============================================================
-   QUARTETO — NOVA MODALIDADE
+   QUARTETO
    ============================================================== */
 
 let qt_num = 10;
@@ -738,36 +963,19 @@ let qt_subAtivo = 'sorteio';
 
 function shuffle(arr) {
     const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
     return a;
 }
 
 function qtSalvar() {
-    try {
-        localStorage.setItem('qt_data', JSON.stringify({
-            num: qt_num,
-            levantadores: qt_levantadores,
-            meninas: qt_meninas,
-            jogadores: qt_jogadores,
-            grupos: qt_grupos,
-            partidas: qt_partidas
-        }));
-    } catch(e) {}
+    try { localStorage.setItem('qt_data', JSON.stringify({ num: qt_num, levantadores: qt_levantadores, meninas: qt_meninas, jogadores: qt_jogadores, grupos: qt_grupos, partidas: qt_partidas })); } catch(e) {}
 }
-
 function qtCarregar() {
     try {
         const d = JSON.parse(localStorage.getItem('qt_data'));
         if (!d) return false;
-        qt_num = d.num || 10;
-        qt_levantadores = d.levantadores || [];
-        qt_meninas = d.meninas || [];
-        qt_jogadores = d.jogadores || [];
-        qt_grupos = d.grupos || [];
-        qt_partidas = d.partidas || [];
+        qt_num = d.num || 10; qt_levantadores = d.levantadores || []; qt_meninas = d.meninas || [];
+        qt_jogadores = d.jogadores || []; qt_grupos = d.grupos || []; qt_partidas = d.partidas || [];
         return true;
     } catch(e) { return false; }
 }
@@ -777,14 +985,12 @@ function qtNomeCurto(i) { return 'Q' + (i + 1); }
 function qtConfCount() { return qt_partidas.filter(p => p.conf).length; }
 
 function qtCalcRanking() {
-    const n = qt_grupos.length;
-    if (n === 0) return [];
+    const n = qt_grupos.length; if (n === 0) return [];
     const st = {};
     for (let i = 0; i < n; i++) st[i] = { idx: i, pts: 0, saldo: 0 };
     qt_partidas.forEach(p => {
         if (!p.conf) return;
-        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
-        const d = s1 - s2;
+        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]), d = s1 - s2;
         if (d > 0) { st[p.t1].pts += 3; st[p.t1].saldo += d; st[p.t2].saldo -= d; }
         else { st[p.t2].pts += 3; st[p.t2].saldo += (-d); st[p.t1].saldo -= (-d); }
     });
@@ -792,33 +998,19 @@ function qtCalcRanking() {
 }
 
 function qtGerarPartidas(n) {
-    const partidas = [];
-    if (n < 2) return partidas;
+    const partidas = []; if (n < 2) return partidas;
     if (n % 2 === 0) {
-        const fixo = 0;
-        const rot = [];
-        for (let i = 1; i < n; i++) rot.push(i);
-        const totalRodadas = n - 1;
-        for (let r = 0; r < totalRodadas; r++) {
-            const rodada = [fixo, ...rot];
-            for (let j = 0; j < n / 2; j++) {
-                partidas.push({ rodada: r + 1, t1: rodada[j], t2: rodada[n - 1 - j], placar: ['', ''], conf: false });
-            }
+        const rot = []; for (let i = 1; i < n; i++) rot.push(i);
+        for (let r = 0; r < n - 1; r++) {
+            const rod = [0, ...rot];
+            for (let j = 0; j < n / 2; j++) partidas.push({ rodada: r + 1, t1: rod[j], t2: rod[n - 1 - j], placar: ['', ''], conf: false });
             rot.push(rot.shift());
         }
     } else {
-        const total = n + 1;
-        const rot = [];
-        for (let i = 1; i < total; i++) rot.push(i);
-        const totalRodadas = total - 1;
-        for (let r = 0; r < totalRodadas; r++) {
-            const rodada = [0, ...rot];
-            for (let j = 0; j < total / 2; j++) {
-                const a = rodada[j], b = rodada[total - 1 - j];
-                if (a < n && b < n) {
-                    partidas.push({ rodada: r + 1, t1: a, t2: b, placar: ['', ''], conf: false });
-                }
-            }
+        const total = n + 1, rot = []; for (let i = 1; i < total; i++) rot.push(i);
+        for (let r = 0; r < total - 1; r++) {
+            const rod = [0, ...rot];
+            for (let j = 0; j < total / 2; j++) { const a = rod[j], b = rod[total - 1 - j]; if (a < n && b < n) partidas.push({ rodada: r + 1, t1: a, t2: b, placar: ['', ''], conf: false }); }
             rot.push(rot.shift());
         }
     }
@@ -827,460 +1019,211 @@ function qtGerarPartidas(n) {
 
 function qtTotalRodadas(n) { return n % 2 === 0 ? n - 1 : n; }
 
-/* Navegação de modalidade */
 function switchMod(mod) {
     document.querySelectorAll('#modNav .gtab').forEach(b => b.classList.toggle('on', b.dataset.mod === mod));
     document.getElementById('areaS8').style.display = mod === 's8' ? '' : 'none';
     document.getElementById('areaQT').style.display = mod === 'qt' ? '' : 'none';
-    const emblem = document.getElementById('hemblem');
-    const title = document.getElementById('headerTitle');
-    const sub = document.getElementById('headerSub');
-    if (mod === 's8') {
-        emblem.textContent = '8';
-        title.textContent = 'SUPER 8 SETS';
-        sub.textContent = 'Gerencie grupos, resultados e classificacoes';
-    } else {
-        emblem.textContent = '4';
-        title.textContent = 'QUARTETO';
-        sub.textContent = 'Sorteio de equipes, resultados e classificacoes';
-    }
+    const emblem = document.getElementById('hemblem'), title = document.getElementById('headerTitle'), sub = document.getElementById('headerSub');
+    if (mod === 's8') { emblem.textContent = '8'; title.textContent = 'SUPER 8 SETS'; sub.textContent = 'Gerencie grupos, resultados e classificacoes'; }
+    else { emblem.textContent = '4'; title.textContent = 'QUARTETO'; sub.textContent = 'Sorteio de equipes, resultados e classificacoes'; }
 }
 
-document.getElementById('modNav').addEventListener('click', function(e) {
-    const btn = e.target.closest('[data-mod]');
-    if (btn) switchMod(btn.dataset.mod);
-});
+document.getElementById('modNav').addEventListener('click', function(e) { const btn = e.target.closest('[data-mod]'); if (btn) switchMod(btn.dataset.mod); });
 
-/* Tabs do Quarteto */
 function qtRenderTabs() {
-    const c = document.getElementById('qtTabs');
-    c.innerHTML = '';
-    const tabs = [
-        { id: 'sorteio', label: 'Sorteio', icon: 'fa-random' },
-        { id: 'jogos', label: 'Jogos', icon: 'fa-list-ol' },
-        { id: 'class', label: 'Classificacao', icon: 'fa-medal' }
-    ];
-    tabs.forEach(t => {
+    const c = document.getElementById('qtTabs'); c.innerHTML = '';
+    [{ id: 'sorteio', label: 'Sorteio', icon: 'fa-random' }, { id: 'jogos', label: 'Jogos', icon: 'fa-list-ol' }, { id: 'class', label: 'Classificacao', icon: 'fa-medal' }].forEach(t => {
         const btn = document.createElement('button');
         btn.className = 'gtab' + (t.id === qt_subAtivo ? ' on' : '');
-        btn.setAttribute('role', 'tab');
-        btn.setAttribute('aria-selected', String(t.id === qt_subAtivo));
-        if (t.id === 'jogos' && qt_grupos.length > 0) {
-            const cc = qtConfCount();
-            btn.innerHTML = '<i class="fas ' + t.icon + ' text-xs"></i>' + t.label + (cc > 0 ? '<span class="badge">' + cc + '/' + qt_partidas.length + '</span>' : '');
-        } else {
-            btn.innerHTML = '<i class="fas ' + t.icon + ' text-xs"></i>' + t.label;
-        }
-        btn.addEventListener('click', () => {
-            if (t.id === qt_subAtivo) return;
-            qt_subAtivo = t.id;
-            qtRenderTabs();
-            qtRenderContent();
-        });
+        btn.setAttribute('role', 'tab'); btn.setAttribute('aria-selected', String(t.id === qt_subAtivo));
+        if (t.id === 'jogos' && qt_grupos.length > 0) { const cc = qtConfCount(); btn.innerHTML = '<i class="fas ' + t.icon + ' text-xs"></i>' + t.label + (cc > 0 ? '<span class="badge">' + cc + '/' + qt_partidas.length + '</span>' : ''); }
+        else btn.innerHTML = '<i class="fas ' + t.icon + ' text-xs"></i>' + t.label;
+        btn.addEventListener('click', () => { if (t.id === qt_subAtivo) return; qt_subAtivo = t.id; qtRenderTabs(); qtRenderContent(); });
         c.appendChild(btn);
     });
 }
 
 function qtUpdateTabBadge() {
-    const tabs = document.getElementById('qtTabs').children;
-    const jogosTab = tabs[1];
-    if (!jogosTab) return;
-    const cc = qtConfCount();
-    const existing = jogosTab.querySelector('.badge');
-    if (cc > 0 && qt_partidas.length > 0) {
-        if (existing) existing.textContent = cc + '/' + qt_partidas.length;
-        else { const b = document.createElement('span'); b.className = 'badge'; b.textContent = cc + '/' + qt_partidas.length; jogosTab.appendChild(b); }
-    } else if (existing) existing.remove();
+    const tabs = document.getElementById('qtTabs').children, jogosTab = tabs[1]; if (!jogosTab) return;
+    const cc = qtConfCount(), existing = jogosTab.querySelector('.badge');
+    if (cc > 0 && qt_partidas.length > 0) { if (existing) existing.textContent = cc + '/' + qt_partidas.length; else { const b = document.createElement('span'); b.className = 'badge'; b.textContent = cc + '/' + qt_partidas.length; jogosTab.appendChild(b); } }
+    else if (existing) existing.remove();
 }
 
 function qtBuildFields() {
-    const sel = document.getElementById('qtNumSel');
-    if (!sel) return;
-    const n = parseInt(sel.value);
-    const oldLev = [...qt_levantadores], oldMen = [...qt_meninas], oldJog = [...qt_jogadores];
-    qt_num = n;
-    qt_levantadores = Array(n).fill('');
-    qt_meninas = Array(n).fill('');
-    qt_jogadores = Array(n * 2).fill('');
-    for (let i = 0; i < Math.min(n, oldLev.length); i++) qt_levantadores[i] = oldLev[i];
-    for (let i = 0; i < Math.min(n, oldMen.length); i++) qt_meninas[i] = oldMen[i];
-    for (let i = 0; i < Math.min(n * 2, oldJog.length); i++) qt_jogadores[i] = oldJog[i];
+    const sel = document.getElementById('qtNumSel'); if (!sel) return;
+    const n = parseInt(sel.value), oL = [...qt_levantadores], oM = [...qt_meninas], oJ = [...qt_jogadores];
+    qt_num = n; qt_levantadores = Array(n).fill(''); qt_meninas = Array(n).fill(''); qt_jogadores = Array(n * 2).fill('');
+    for (let i = 0; i < Math.min(n, oL.length); i++) qt_levantadores[i] = oL[i];
+    for (let i = 0; i < Math.min(n, oM.length); i++) qt_meninas[i] = oM[i];
+    for (let i = 0; i < Math.min(n * 2, oJ.length); i++) qt_jogadores[i] = oJ[i];
     if (qt_grupos.length > 0 && qt_grupos.length !== n) { qt_grupos = []; qt_partidas = []; }
-    qtSalvar();
-    qtRenderContent();
+    qtSalvar(); qtRenderContent();
 }
 
 function qtDoSorteio() {
-    const n = qt_num;
-    const levs = [], mens = [], jogs = [];
-    for (let i = 0; i < n; i++) {
-        const v = qt_levantadores[i] ? qt_levantadores[i].trim() : '';
-        if (!v) { toast('Preencha o levantador ' + (i + 1), 'err'); return; }
-        levs.push(v);
-    }
-    for (let i = 0; i < n; i++) {
-        const v = qt_meninas[i] ? qt_meninas[i].trim() : '';
-        if (!v) { toast('Preencha a menina ' + (i + 1), 'err'); return; }
-        mens.push(v);
-    }
-    for (let i = 0; i < n * 2; i++) {
-        const v = qt_jogadores[i] ? qt_jogadores[i].trim() : '';
-        if (!v) { toast('Preencha o jogador ' + (i + 1), 'err'); return; }
-        jogs.push(v);
-    }
-    const sLevs = shuffle(levs), sMens = shuffle(mens), sJogs = shuffle(jogs);
+    const n = qt_num, levs = [], mens = [], jogs = [];
+    for (let i = 0; i < n; i++) { const v = qt_levantadores[i] ? qt_levantadores[i].trim() : ''; if (!v) { toast('Preencha o levantador ' + (i + 1), 'err'); return; } levs.push(v); }
+    for (let i = 0; i < n; i++) { const v = qt_meninas[i] ? qt_meninas[i].trim() : ''; if (!v) { toast('Preencha a menina ' + (i + 1), 'err'); return; } mens.push(v); }
+    for (let i = 0; i < n * 2; i++) { const v = qt_jogadores[i] ? qt_jogadores[i].trim() : ''; if (!v) { toast('Preencha o jogador ' + (i + 1), 'err'); return; } jogs.push(v); }
+    const sL = shuffle(levs), sM = shuffle(mens), sJ = shuffle(jogs);
     qt_grupos = [];
-    for (let i = 0; i < n; i++) {
-        qt_grupos.push({ levantador: sLevs[i], menina: sMens[i], jogador1: sJogs[i * 2], jogador2: sJogs[i * 2 + 1] });
-    }
-    qt_partidas = qtGerarPartidas(n);
-    qt_subAtivo = 'sorteio';
-    qtSalvar();
-    qtRenderTabs();
-    qtRenderContent();
+    for (let i = 0; i < n; i++) qt_grupos.push({ levantador: sL[i], menina: sM[i], jogador1: sJ[i * 2], jogador2: sJ[i * 2 + 1] });
+    qt_partidas = qtGerarPartidas(n); qt_subAtivo = 'sorteio'; qtSalvar(); qtRenderTabs(); qtRenderContent();
     toast('Sorteio realizado com sucesso!', 'ok');
 }
 
-function qtReSorteio() {
-    if (qt_levantadores.length === 0) { toast('Cadastre os participantes primeiro', 'err'); return; }
-    qtDoSorteio();
-}
+function qtReSorteio() { if (qt_levantadores.length === 0) { toast('Cadastre os participantes primeiro', 'err'); return; } qtDoSorteio(); }
 
 function qtClear() {
-    qt_levantadores = Array(qt_num).fill('');
-    qt_meninas = Array(qt_num).fill('');
-    qt_jogadores = Array(qt_num * 2).fill('');
-    qt_grupos = [];
-    qt_partidas = [];
-    qt_subAtivo = 'sorteio';
-    qtSalvar();
-    qtRenderTabs();
-    qtRenderContent();
-    toast('Quarteto limpo', 'info');
+    qt_levantadores = Array(qt_num).fill(''); qt_meninas = Array(qt_num).fill(''); qt_jogadores = Array(qt_num * 2).fill('');
+    qt_grupos = []; qt_partidas = []; qt_subAtivo = 'sorteio'; qtSalvar(); qtRenderTabs(); qtRenderContent(); toast('Quarteto limpo', 'info');
 }
 
 function qtRenderContent() {
     const m = document.getElementById('qtMain');
     if (qt_subAtivo === 'sorteio') m.innerHTML = qtRenderSorteio();
     else if (qt_subAtivo === 'jogos') m.innerHTML = qtRenderJogos();
-    else if (qt_subAtivo === 'class') m.innerHTML = qtRenderClass();
+    else m.innerHTML = qtRenderClass();
 }
 
-/* Aba Sorteio */
 function qtRenderSorteio() {
-    const n = qt_num;
-    let h = '';
+    const n = qt_num; let h = '';
     h += '<section class="mb-5 ani"><div class="rcard"><div class="sec-lbl"><i class="fas fa-sliders-h text-xs"></i>Configuracao</div>';
     h += '<label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Quantidade de Quartetos</label>';
     h += '<select class="ninput" id="qtNumSel" data-qt-acao="change-num">';
-    for (let i = 2; i <= 10; i++) {
-        h += '<option value="' + i + '"' + (i === n ? ' selected' : '') + '>' + i + ' quartetos (' + (i * 4) + ' jogadores)</option>';
-    }
-    h += '</select>';
-    h += '<p class="info-txt">Cada quarteto = 1 levantador + 1 menina + 2 jogadores</p></div></section>';
+    for (let i = 2; i <= 10; i++) h += '<option value="' + i + '"' + (i === n ? ' selected' : '') + '>' + i + ' quartetos (' + (i * 4) + ' jogadores)</option>';
+    h += '</select><p class="info-txt">Cada quarteto = 1 levantador + 1 menina + 2 jogadores</p></div></section>';
 
-    h += '<section class="mb-5 ani" style="animation-delay:60ms">';
-    h += '<button class="ntgl" data-qt-acao="toggle-lev" aria-expanded="true">';
-    h += '<div class="flex items-center gap-2"><i class="fas fa-hand-paper text-gold text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Levantadores</span>';
-    h += '<span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_levantadores.filter(x => x && x.trim()).length + '/' + n + ')</span></div>';
-    h += '<i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
+    h += '<section class="mb-5 ani" style="animation-delay:60ms"><button class="ntgl" data-qt-acao="toggle-lev" aria-expanded="true"><div class="flex items-center gap-2"><i class="fas fa-hand-paper text-gold text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Levantadores</span><span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_levantadores.filter(x => x && x.trim()).length + '/' + n + ')</span></div><i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
     h += '<div class="ngrid" id="qtLevGrid"><div class="grid grid-cols-2 gap-3">';
-    for (let i = 0; i < n; i++) {
-        h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Levantador ' + (i + 1) + '</label>';
-        h += '<input class="ninput" data-qt-lev="' + i + '" placeholder="Nome..." value="' + escAttr(qt_levantadores[i] || '') + '" /></div>';
-    }
+    for (let i = 0; i < n; i++) h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Levantador ' + (i + 1) + '</label><input class="ninput" data-qt-lev="' + i + '" placeholder="Nome..." value="' + escAttr(qt_levantadores[i] || '') + '" /></div>';
     h += '</div></div></section>';
 
-    h += '<section class="mb-5 ani" style="animation-delay:120ms">';
-    h += '<button class="ntgl" data-qt-acao="toggle-men" aria-expanded="true">';
-    h += '<div class="flex items-center gap-2"><i class="fas fa-female text-pink text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Meninas</span>';
-    h += '<span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_meninas.filter(x => x && x.trim()).length + '/' + n + ')</span></div>';
-    h += '<i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
+    h += '<section class="mb-5 ani" style="animation-delay:120ms"><button class="ntgl" data-qt-acao="toggle-men" aria-expanded="true"><div class="flex items-center gap-2"><i class="fas fa-female text-pink text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Meninas</span><span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_meninas.filter(x => x && x.trim()).length + '/' + n + ')</span></div><i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
     h += '<div class="ngrid" id="qtMenGrid"><div class="grid grid-cols-2 gap-3">';
-    for (let i = 0; i < n; i++) {
-        h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Menina ' + (i + 1) + '</label>';
-        h += '<input class="ninput" data-qt-men="' + i + '" placeholder="Nome..." value="' + escAttr(qt_meninas[i] || '') + '" /></div>';
-    }
+    for (let i = 0; i < n; i++) h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Menina ' + (i + 1) + '</label><input class="ninput" data-qt-men="' + i + '" placeholder="Nome..." value="' + escAttr(qt_meninas[i] || '') + '" /></div>';
     h += '</div></div></section>';
 
-    h += '<section class="mb-6 ani" style="animation-delay:180ms">';
-    h += '<button class="ntgl" data-qt-acao="toggle-jog" aria-expanded="true">';
-    h += '<div class="flex items-center gap-2"><i class="fas fa-running text-neon text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Demais Jogadores</span>';
-    h += '<span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_jogadores.filter(x => x && x.trim()).length + '/' + (n * 2) + ')</span></div>';
-    h += '<i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
+    h += '<section class="mb-6 ani" style="animation-delay:180ms"><button class="ntgl" data-qt-acao="toggle-jog" aria-expanded="true"><div class="flex items-center gap-2"><i class="fas fa-running text-neon text-xs"></i><span class="font-display text-sm font-semibold tracking-widest uppercase">Demais Jogadores</span><span class="text-muted text-xs font-body font-normal tracking-normal">(' + qt_jogadores.filter(x => x && x.trim()).length + '/' + (n * 2) + ')</span></div><i class="fas fa-chevron-down text-muted text-xs transition-transform duration-300"></i></button>';
     h += '<div class="ngrid" id="qtJogGrid"><div class="grid grid-cols-2 gap-3">';
-    for (let i = 0; i < n * 2; i++) {
-        h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Jogador ' + (i + 1) + '</label>';
-        h += '<input class="ninput" data-qt-jog="' + i + '" placeholder="Nome..." value="' + escAttr(qt_jogadores[i] || '') + '" /></div>';
-    }
+    for (let i = 0; i < n * 2; i++) h += '<div><label class="text-muted text-[11px] font-medium tracking-wider uppercase mb-1.5 block">Jogador ' + (i + 1) + '</label><input class="ninput" data-qt-jog="' + i + '" placeholder="Nome..." value="' + escAttr(qt_jogadores[i] || '') + '" /></div>';
     h += '</div></div></section>';
 
-    h += '<section class="ani" style="animation-delay:240ms">';
-    h += '<button class="btn-c" data-qt-acao="sortear"><i class="fas fa-random text-xs"></i>Realizar Sorteio</button>';
-    if (qt_grupos.length > 0) {
-        h += '<button class="btn-e" data-qt-acao="resortear"><i class="fas fa-redo text-[10px]"></i>Refazer Sorteio</button>';
-    }
-    h += '<button class="btn-e" data-qt-acao="limpar"><i class="fas fa-eraser text-[10px]"></i>Limpar Tudo</button>';
-    h += '</section>';
+    h += '<section class="ani" style="animation-delay:240ms"><button class="btn-c" data-qt-acao="sortear"><i class="fas fa-random text-xs"></i>Realizar Sorteio</button>';
+    if (qt_grupos.length > 0) h += '<button class="btn-e" data-qt-acao="resortear"><i class="fas fa-redo text-[10px]"></i>Refazer Sorteio</button>';
+    h += '<button class="btn-e" data-qt-acao="limpar"><i class="fas fa-eraser text-[10px]"></i>Limpar Tudo</button></section>';
 
     if (qt_grupos.length > 0) {
-        h += '<section class="mt-8 ani" style="animation-delay:300ms">';
-        h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
-        h += '<i class="fas fa-dice text-neon text-xs"></i>Quartetos Sorteados</h2>';
-        h += '<div class="flex flex-col gap-3">';
+        h += '<section class="mt-8 ani" style="animation-delay:300ms"><h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2"><i class="fas fa-dice text-neon text-xs"></i>Quartetos Sorteados</h2><div class="flex flex-col gap-3">';
         qt_grupos.forEach((g, i) => {
-            const cor = i % 2 === 0 ? 'gn' : 'gd';
-            h += '<div class="qcard ani" style="animation-delay:' + (300 + i * 50) + 'ms">';
-            h += '<div class="qcard-h ' + cor + '"><i class="fas fa-volleyball-ball text-xs"></i>' + qtNome(i) + '</div>';
-            h += '<div class="qcard-b">';
+            h += '<div class="qcard ani" style="animation-delay:' + (300 + i * 50) + 'ms"><div class="qcard-h ' + (i % 2 === 0 ? 'gn' : 'gd') + '"><i class="fas fa-volleyball-ball text-xs"></i>' + qtNome(i) + '</div><div class="qcard-b">';
             h += '<div class="qrow"><div class="qico lev"><i class="fas fa-hand-paper"></i></div><span class="qlbl">Levantador</span><span class="qnome">' + esc(g.levantador) + '</span></div>';
             h += '<div class="qrow"><div class="qico men"><i class="fas fa-female"></i></div><span class="qlbl">Menina</span><span class="qnome">' + esc(g.menina) + '</span></div>';
             h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador1) + '</span></div>';
             h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador2) + '</span></div>';
             h += '</div></div>';
         });
-        h += '</div>';
-        h += '<button class="btn-pdf mt-4" data-qt-acao="pdf-sorteio"><i class="fas fa-file-pdf"></i>Baixar PDF do Sorteio</button>';
-        h += '</section>';
+        h += '</div><button class="btn-pdf mt-4" data-qt-acao="pdf-sorteio"><i class="fas fa-file-pdf"></i>Baixar PDF do Sorteio</button></section>';
     }
     return h;
 }
 
-/* Aba Jogos */
 function qtRenderJogos() {
-    if (qt_grupos.length === 0) {
-        return '<div class="rcard ani"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Realize o sorteio primeiro para gerar os jogos.</span></div>';
-    }
-    const n = qt_grupos.length;
-    const totalR = qtTotalRodadas(n);
-    const cc = qtConfCount();
-    let h = '';
-    h += '<section class="ani">';
-    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
-    h += '<i class="fas fa-list-ol text-neon text-xs"></i>Resultados das Rodadas';
-    h += '<span class="text-muted text-xs font-body font-normal tracking-normal ml-1">(' + cc + '/' + qt_partidas.length + ')</span></h2>';
+    if (qt_grupos.length === 0) return '<div class="rcard ani"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Realize o sorteio primeiro para gerar os jogos.</span></div>';
+    const n = qt_grupos.length, totalR = qtTotalRodadas(n), cc = qtConfCount(); let h = '';
+    h += '<section class="ani"><h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2"><i class="fas fa-list-ol text-neon text-xs"></i>Resultados das Rodadas<span class="text-muted text-xs font-body font-normal tracking-normal ml-1">(' + cc + '/' + qt_partidas.length + ')</span></h2>';
     h += '<div class="flex flex-col gap-3" id="qtRodBox">';
     for (let r = 1; r <= totalR; r++) {
-        const pIdxs = [];
-        qt_partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
-        const allConf = pIdxs.every(i => qt_partidas[i].conf);
-        h += '<div class="rcard' + (allConf ? ' conf' : '') + '" id="qtRod-' + r + '">';
-        h += '<div class="rlbl"><span class="rdot' + (allConf ? ' done' : '') + '"></span>Rodada ' + r + '</div>';
-        pIdxs.forEach((pi, mi) => {
-            h += '<div class="mblk' + (mi > 0 ? ' mt-3 pt-3 border-t border-line' : '') + '" id="qtPt-' + pi + '">';
-            h += qtRenderPartida(pi);
-            h += '</div>';
-        });
+        const pIdxs = []; qt_partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
+        const allC = pIdxs.every(i => qt_partidas[i].conf);
+        h += '<div class="rcard' + (allC ? ' conf' : '') + '" id="qtRod-' + r + '"><div class="rlbl"><span class="rdot' + (allC ? ' done' : '') + '"></span>Rodada ' + r + '</div>';
+        pIdxs.forEach((pi, mi) => { h += '<div class="mblk' + (mi > 0 ? ' mt-3 pt-3 border-t border-line' : '') + '" id="qtPt-' + pi + '">' + qtRenderPartida(pi) + '</div>'; });
         h += '</div>';
     }
     h += '</div></section>';
-
-    h += '<footer class="mt-10 pt-6 border-t border-line text-center ani" style="animation-delay:200ms">';
-    h += '<p class="text-muted text-xs tracking-wide">Pontuacao: 3 pts por vitoria — Desempate por saldo de sets</p>';
-    if (cc > 0) {
-        h += '<button class="btn-pdf mx-auto mt-4" data-qt-acao="pdf-resultados" style="width:auto;padding:8px 24px"><i class="fas fa-file-pdf mr-1"></i>Baixar PDF dos Resultados</button>';
-    }
-    h += '<button class="btn-e mt-3 mx-auto" data-qt-acao="resetar" style="width:auto;padding:8px 20px"><i class="fas fa-redo-alt mr-1"></i>Resetar Todos os Resultados</button>';
-    h += '</footer>';
+    h += '<footer class="mt-10 pt-6 border-t border-line text-center ani" style="animation-delay:200ms"><p class="text-muted text-xs tracking-wide">Pontuacao: 3 pts por vitoria — Desempate por saldo de sets</p>';
+    if (cc > 0) h += '<button class="btn-pdf mx-auto mt-4" data-qt-acao="pdf-resultados" style="width:auto;padding:8px 24px"><i class="fas fa-file-pdf mr-1"></i>Baixar PDF dos Resultados</button>';
+    h += '<button class="btn-e mt-3 mx-auto" data-qt-acao="resetar" style="width:auto;padding:8px 20px"><i class="fas fa-redo-alt mr-1"></i>Resetar Todos os Resultados</button></footer>';
     return h;
 }
 
 function qtRenderPartida(pi) {
-    const p = qt_partidas[pi];
-    const n1 = qtNomeCurto(p.t1), n2 = qtNomeCurto(p.t2);
+    const p = qt_partidas[pi], n1 = qtNomeCurto(p.t1), n2 = qtNomeCurto(p.t2);
     if (p.conf) {
-        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
-        const t1w = s1 > s2;
-        return '<div class="mrow">'
-            + '<div class="tname rr ' + (t1w ? 'w' : 'l') + '">' + esc(n1) + '</div>'
-            + '<div class="sbox"><span class="snum ' + (t1w ? 'w' : 'lo') + '">' + s1 + '</span><span class="sx">x</span><span class="snum ' + (!t1w ? 'w' : 'lo') + '">' + s2 + '</span></div>'
-            + '<div class="tname ' + (!t1w ? 'w' : 'l') + '">' + esc(n2) + '</div>'
-            + '</div>'
-            + '<button class="btn-e" data-qt-acao="editar" data-qpi="' + pi + '"><i class="fas fa-pen text-[10px]"></i>Editar Resultado</button>';
+        const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]), t1w = s1 > s2;
+        return '<div class="mrow"><div class="tname rr ' + (t1w ? 'w' : 'l') + '">' + esc(n1) + '</div><div class="sbox"><span class="snum ' + (t1w ? 'w' : 'lo') + '">' + s1 + '</span><span class="sx">x</span><span class="snum ' + (!t1w ? 'w' : 'lo') + '">' + s2 + '</span></div><div class="tname ' + (!t1w ? 'w' : 'l') + '">' + esc(n2) + '</div></div><button class="btn-e" data-qt-acao="editar" data-qpi="' + pi + '"><i class="fas fa-pen text-[10px]"></i>Editar Resultado</button>';
     } else {
-        return '<div class="mrow">'
-            + '<div class="tname rr">' + esc(n1) + '</div>'
-            + '<div class="sibx"><input type="number" class="sinput" data-qpi="' + pi + '" data-qtm="1" min="0" placeholder="0" value="' + escAttr(p.placar[0]) + '" /><span class="sx">x</span><input type="number" class="sinput" data-qpi="' + pi + '" data-qtm="2" min="0" placeholder="0" value="' + escAttr(p.placar[1]) + '" /></div>'
-            + '<div class="tname">' + esc(n2) + '</div>'
-            + '</div>'
-            + '<button class="btn-c" data-qt-acao="confirmar" data-qpi="' + pi + '"><i class="fas fa-check text-xs"></i>Encerrar Partida</button>';
+        return '<div class="mrow"><div class="tname rr">' + esc(n1) + '</div><div class="sibx"><input type="number" class="sinput" data-qpi="' + pi + '" data-qtm="1" min="0" placeholder="0" value="' + escAttr(p.placar[0]) + '" /><span class="sx">x</span><input type="number" class="sinput" data-qpi="' + pi + '" data-qtm="2" min="0" placeholder="0" value="' + escAttr(p.placar[1]) + '" /></div><div class="tname">' + esc(n2) + '</div></div><button class="btn-c" data-qt-acao="confirmar" data-qpi="' + pi + '"><i class="fas fa-check text-xs"></i>Encerrar Partida</button>';
     }
 }
 
-/* Aba Classificação */
 function qtRenderClass() {
-    if (qt_grupos.length === 0) {
-        return '<div class="rcard ani"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Realize o sorteio e registre resultados para ver a classificacao.</span></div>';
-    }
+    if (qt_grupos.length === 0) return '<div class="rcard ani"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Realize o sorteio e registre resultados para ver a classificacao.</span></div>';
     let h = '';
-    h += '<section class="ani">';
-    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
-    h += '<i class="fas fa-medal text-neon text-xs"></i>Classificacao Geral</h2>';
-    h += '<div class="overflow-x-auto"><table class="rtbl"><thead><tr>';
-    h += '<th>#</th><th>Quarteto</th><th>Saldo</th><th>Pts</th>';
-    h += '</tr></thead><tbody id="qtRkBody">';
-    h += qtRenderRankRows();
-    h += '</tbody></table></div></section>';
-
-    h += '<section class="mt-8 ani" style="animation-delay:100ms">';
-    h += '<h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2">';
-    h += '<i class="fas fa-users text-neon text-xs"></i>Composicao dos Quartetos</h2>';
-    h += '<div class="flex flex-col gap-3">';
+    h += '<section class="ani"><h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2"><i class="fas fa-medal text-neon text-xs"></i>Classificacao Geral</h2><div class="overflow-x-auto"><table class="rtbl"><thead><tr><th>#</th><th>Quarteto</th><th>Saldo</th><th>Pts</th></tr></thead><tbody id="qtRkBody">' + qtRenderRankRows() + '</tbody></table></div></section>';
+    h += '<section class="mt-8 ani" style="animation-delay:100ms"><h2 class="font-display text-sm font-semibold tracking-widest text-white/90 mb-3 flex items-center gap-2"><i class="fas fa-users text-neon text-xs"></i>Composicao dos Quartetos</h2><div class="flex flex-col gap-3">';
     qt_grupos.forEach((g, i) => {
-        const cor = i % 2 === 0 ? 'gn' : 'gd';
-        h += '<div class="qcard"><div class="qcard-h ' + cor + '"><i class="fas fa-volleyball-ball text-xs"></i>' + qtNome(i) + '</div>';
-        h += '<div class="qcard-b">';
+        h += '<div class="qcard"><div class="qcard-h ' + (i % 2 === 0 ? 'gn' : 'gd') + '"><i class="fas fa-volleyball-ball text-xs"></i>' + qtNome(i) + '</div><div class="qcard-b">';
         h += '<div class="qrow"><div class="qico lev"><i class="fas fa-hand-paper"></i></div><span class="qlbl">Levantador</span><span class="qnome">' + esc(g.levantador) + '</span></div>';
         h += '<div class="qrow"><div class="qico men"><i class="fas fa-female"></i></div><span class="qlbl">Menina</span><span class="qnome">' + esc(g.menina) + '</span></div>';
         h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador1) + '</span></div>';
-        h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador2) + '</span></div>';
-        h += '</div></div>';
+        h += '<div class="qrow"><div class="qico jog"><i class="fas fa-user"></i></div><span class="qlbl">Jogador</span><span class="qnome">' + esc(g.jogador2) + '</span></div></div></div>';
     });
     h += '</div>';
-
-    if (qtConfCount() > 0) {
-        h += '<button class="btn-pdf mt-4" data-qt-acao="pdf-class"><i class="fas fa-file-pdf"></i>Baixar PDF da Classificacao</button>';
-    }
+    if (qtConfCount() > 0) h += '<button class="btn-pdf mt-4" data-qt-acao="pdf-class"><i class="fas fa-file-pdf"></i>Baixar PDF da Classificacao</button>';
     h += '</section>';
     return h;
 }
 
 function qtRenderRankRows() {
-    const rk = qtCalcRanking();
-    const cc = qtConfCount();
-    if (cc === 0) {
-        return '<tr><td colspan="4" class="!text-center !py-6"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Encerre partidas para ver a classificacao</span></td></tr>';
-    }
+    const rk = qtCalcRanking(); if (qtConfCount() === 0) return '<tr><td colspan="4" class="!text-center !py-6"><span class="empty-st"><i class="fas fa-info-circle mr-1"></i>Encerre partidas para ver a classificacao</span></td></tr>';
     let h = '';
-    rk.forEach((j, i) => {
-        h += '<tr class="' + rkCls(i) + '">';
-        h += '<td>' + trofeu(i) + '</td>';
-        h += '<td class="font-medium">' + esc(qtNome(j.idx)) + '</td>';
-        h += '<td class="' + cSaldo(j.saldo) + '">' + fSaldo(j.saldo) + '</td>';
-        h += '<td>' + j.pts + '</td>';
-        h += '</tr>';
-    });
+    rk.forEach((j, i) => { h += '<tr class="' + rkCls(i) + '"><td>' + trofeu(i) + '</td><td class="font-medium">' + esc(qtNome(j.idx)) + '</td><td class="' + cSaldo(j.saldo) + '">' + fSaldo(j.saldo) + '</td><td>' + j.pts + '</td></tr>'; });
     return h;
 }
 
-/* Updates parciais */
-function qtUpdateRanking() {
-    const body = document.getElementById('qtRkBody');
-    if (body) body.innerHTML = qtRenderRankRows();
-}
-function qtUpdatePartida(pi) {
-    const el = document.getElementById('qtPt-' + pi);
-    if (!el) return;
-    const tmp = document.createElement('div');
-    tmp.innerHTML = '<div class="mblk" id="qtPt-' + pi + '">' + qtRenderPartida(pi) + '</div>';
-    el.replaceWith(tmp.firstElementChild);
-    qtUpdateRodDot(qt_partidas[pi].rodada);
-}
-function qtUpdateRodDot(rNum) {
-    const pIdxs = [];
-    qt_partidas.forEach((p, i) => { if (p.rodada === rNum) pIdxs.push(i); });
-    const allC = pIdxs.every(i => qt_partidas[i].conf);
-    const card = document.getElementById('qtRod-' + rNum);
-    if (!card) return;
-    const dot = card.querySelector('.rdot');
-    if (dot) dot.classList.toggle('done', allC);
-    card.classList.toggle('conf', allC);
-}
-function qtUpdateRodCount() {
-    const cc = qtConfCount();
-    const box = document.getElementById('qtRodBox');
-    if (!box) return;
-    const h2 = box.parentElement.querySelector('h2 span');
-    if (h2 && h2.classList.contains('text-muted')) h2.textContent = '(' + cc + '/' + qt_partidas.length + ')';
-}
-function qtUpdateLevCount() {
-    const c = qt_levantadores.filter(x => x && x.trim()).length;
-    const sp = document.querySelector('[data-qt-acao="toggle-lev"] .text-muted');
-    if (sp) sp.textContent = '(' + c + '/' + qt_num + ')';
-}
-function qtUpdateMenCount() {
-    const c = qt_meninas.filter(x => x && x.trim()).length;
-    const sp = document.querySelector('[data-qt-acao="toggle-men"] .text-muted');
-    if (sp) sp.textContent = '(' + c + '/' + qt_num + ')';
-}
-function qtUpdateJogCount() {
-    const c = qt_jogadores.filter(x => x && x.trim()).length;
-    const sp = document.querySelector('[data-qt-acao="toggle-jog"] .text-muted');
-    if (sp) sp.textContent = '(' + c + '/' + (qt_num * 2) + ')';
-}
+function qtUpdateRanking() { const b = document.getElementById('qtRkBody'); if (b) b.innerHTML = qtRenderRankRows(); }
+function qtUpdatePartida(pi) { const el = document.getElementById('qtPt-' + pi); if (!el) return; const t = document.createElement('div'); t.innerHTML = '<div class="mblk" id="qtPt-' + pi + '">' + qtRenderPartida(pi) + '</div>'; el.replaceWith(t.firstElementChild); qtUpdateRodDot(qt_partidas[pi].rodada); }
+function qtUpdateRodDot(rNum) { const pI = []; qt_partidas.forEach((p, i) => { if (p.rodada === rNum) pI.push(i); }); const aC = pI.every(i => qt_partidas[i].conf); const c = document.getElementById('qtRod-' + rNum); if (!c) return; const d = c.querySelector('.rdot'); if (d) d.classList.toggle('done', aC); c.classList.toggle('conf', aC); }
+function qtUpdateRodCount() { const cc = qtConfCount(), box = document.getElementById('qtRodBox'); if (!box) return; const h2 = box.parentElement.querySelector('h2 span'); if (h2 && h2.classList.contains('text-muted')) h2.textContent = '(' + cc + '/' + qt_partidas.length + ')'; }
+function qtUpdateLevCount() { const c = qt_levantadores.filter(x => x && x.trim()).length; const s = document.querySelector('[data-qt-acao="toggle-lev"] .text-muted'); if (s) s.textContent = '(' + c + '/' + qt_num + ')'; }
+function qtUpdateMenCount() { const c = qt_meninas.filter(x => x && x.trim()).length; const s = document.querySelector('[data-qt-acao="toggle-men"] .text-muted'); if (s) s.textContent = '(' + c + '/' + qt_num + ')'; }
+function qtUpdateJogCount() { const c = qt_jogadores.filter(x => x && x.trim()).length; const s = document.querySelector('[data-qt-acao="toggle-jog"] .text-muted'); if (s) s.textContent = '(' + c + '/' + (qt_num * 2) + ')'; }
 
-/* Ações */
 function qtAcaoConfirmar(pi) {
-    const p = qt_partidas[pi];
-    const v1 = p.placar[0].trim(), v2 = p.placar[1].trim();
+    const p = qt_partidas[pi], v1 = p.placar[0].trim(), v2 = p.placar[1].trim();
     if (!v1 || !v2) { toast('Preencha ambos os placares', 'err'); return; }
     const s1 = parseInt(v1), s2 = parseInt(v2);
     if (isNaN(s1) || isNaN(s2) || s1 < 0 || s2 < 0) { toast('Insira valores validos', 'err'); return; }
     if (s1 === s2) { toast('Nao pode haver empate', 'err'); return; }
-    p.placar = [String(s1), String(s2)];
-    p.conf = true;
-    qtSalvar();
-    qtUpdatePartida(pi);
-    qtUpdateRanking();
-    qtUpdateTabBadge();
-    qtUpdateRodCount();
-    toast('Partida encerrada!', 'ok');
+    p.placar = [String(s1), String(s2)]; p.conf = true; qtSalvar(); qtUpdatePartida(pi); qtUpdateRanking(); qtUpdateTabBadge(); qtUpdateRodCount(); toast('Partida encerrada!', 'ok');
 }
-function qtAcaoEditar(pi) {
-    qt_partidas[pi].conf = false;
-    qtSalvar();
-    qtUpdatePartida(pi);
-    qtUpdateRanking();
-    qtUpdateTabBadge();
-    qtUpdateRodCount();
-    toast('Partida reaberta para edicao', 'info');
-}
-function qtAcaoResetar() {
-    qt_partidas.forEach(p => { p.placar = ['', '']; p.conf = false; });
-    qtSalvar();
-    qtRenderTabs();
-    qtRenderContent();
-    toast('Resultados resetados', 'info');
-}
+function qtAcaoEditar(pi) { qt_partidas[pi].conf = false; qtSalvar(); qtUpdatePartida(pi); qtUpdateRanking(); qtUpdateTabBadge(); qtUpdateRodCount(); toast('Partida reaberta para edicao', 'info'); }
+function qtAcaoResetar() { qt_partidas.forEach(p => { p.placar = ['', '']; p.conf = false; }); qtSalvar(); qtRenderTabs(); qtRenderContent(); toast('Resultados resetados', 'info'); }
 function qtToggleSec(tipo) {
     let grid, btn;
     if (tipo === 'lev') { grid = document.getElementById('qtLevGrid'); btn = document.querySelector('[data-qt-acao="toggle-lev"]'); }
     else if (tipo === 'men') { grid = document.getElementById('qtMenGrid'); btn = document.querySelector('[data-qt-acao="toggle-men"]'); }
     else { grid = document.getElementById('qtJogGrid'); btn = document.querySelector('[data-qt-acao="toggle-jog"]'); }
-    if (!grid || !btn) return;
-    const isOpen = !grid.classList.contains('shut');
-    grid.classList.toggle('shut', isOpen);
-    const chev = btn.querySelector('.fa-chevron-down');
-    if (chev) chev.style.transform = 'rotate(' + (isOpen ? -90 : 0) + 'deg)';
-    btn.setAttribute('aria-expanded', String(isOpen ? 'false' : 'true'));
+    if (!grid || !btn) return; const isO = !grid.classList.contains('shut'); grid.classList.toggle('shut', isO);
+    const ch = btn.querySelector('.fa-chevron-down'); if (ch) ch.style.transform = 'rotate(' + (isO ? -90 : 0) + 'deg)';
+    btn.setAttribute('aria-expanded', String(isO ? 'false' : 'true'));
 }
 
-/* Event listeners Quarteto */
 document.getElementById('qtMain').addEventListener('click', function(e) {
-    const btnC = e.target.closest('[data-qt-acao="confirmar"]');
-    if (btnC) { qtAcaoConfirmar(parseInt(btnC.dataset.qpi)); return; }
-    const btnE = e.target.closest('[data-qt-acao="editar"]');
-    if (btnE) { qtAcaoEditar(parseInt(btnE.dataset.qpi)); return; }
-    const btnS = e.target.closest('[data-qt-acao="sortear"]');
-    if (btnS) { qtDoSorteio(); return; }
-    const btnRS = e.target.closest('[data-qt-acao="resortear"]');
-    if (btnRS) { qtReSorteio(); return; }
-    const btnL = e.target.closest('[data-qt-acao="limpar"]');
-    if (btnL) { qtClear(); return; }
-    const btnR = e.target.closest('[data-qt-acao="resetar"]');
-    if (btnR) { qtAcaoResetar(); return; }
-    const btnTL = e.target.closest('[data-qt-acao="toggle-lev"]');
-    if (btnTL) { qtToggleSec('lev'); return; }
-    const btnTM = e.target.closest('[data-qt-acao="toggle-men"]');
-    if (btnTM) { qtToggleSec('men'); return; }
-    const btnTJ = e.target.closest('[data-qt-acao="toggle-jog"]');
-    if (btnTJ) { qtToggleSec('jog'); return; }
-    const btnPdfS = e.target.closest('[data-qt-acao="pdf-sorteio"]');
-    if (btnPdfS) { gerarPdfSorteio(); return; }
-    const btnPdfR = e.target.closest('[data-qt-acao="pdf-resultados"]');
-    if (btnPdfR) { gerarPdfResultados(); return; }
-    const btnPdfC = e.target.closest('[data-qt-acao="pdf-class"]');
-    if (btnPdfC) { gerarPdfClass(); return; }
+    const bC = e.target.closest('[data-qt-acao="confirmar"]'); if (bC) { qtAcaoConfirmar(parseInt(bC.dataset.qpi)); return; }
+    const bE = e.target.closest('[data-qt-acao="editar"]'); if (bE) { qtAcaoEditar(parseInt(bE.dataset.qpi)); return; }
+    const bS = e.target.closest('[data-qt-acao="sortear"]'); if (bS) { qtDoSorteio(); return; }
+    const bRS = e.target.closest('[data-qt-acao="resortear"]'); if (bRS) { qtReSorteio(); return; }
+    const bL = e.target.closest('[data-qt-acao="limpar"]'); if (bL) { qtClear(); return; }
+    const bR = e.target.closest('[data-qt-acao="resetar"]'); if (bR) { qtAcaoResetar(); return; }
+    const bTL = e.target.closest('[data-qt-acao="toggle-lev"]'); if (bTL) { qtToggleSec('lev'); return; }
+    const bTM = e.target.closest('[data-qt-acao="toggle-men"]'); if (bTM) { qtToggleSec('men'); return; }
+    const bTJ = e.target.closest('[data-qt-acao="toggle-jog"]'); if (bTJ) { qtToggleSec('jog'); return; }
+    const bPS = e.target.closest('[data-qt-acao="pdf-sorteio"]'); if (bPS) { gerarPdfSorteio(); return; }
+    const bPR = e.target.closest('[data-qt-acao="pdf-resultados"]'); if (bPR) { gerarPdfResultados(); return; }
+    const bPC = e.target.closest('[data-qt-acao="pdf-class"]'); if (bPC) { gerarPdfClass(); return; }
 });
 
 document.getElementById('qtMain').addEventListener('input', function(e) {
@@ -1290,9 +1233,7 @@ document.getElementById('qtMain').addEventListener('input', function(e) {
     if (e.target.dataset.qpi !== undefined && e.target.dataset.qtm !== undefined) { qt_partidas[parseInt(e.target.dataset.qpi)].placar[parseInt(e.target.dataset.qtm) - 1] = e.target.value; qtSalvar(); }
 });
 
-document.getElementById('qtMain').addEventListener('change', function(e) {
-    if (e.target.dataset.qtAcao === 'change-num') qtBuildFields();
-});
+document.getElementById('qtMain').addEventListener('change', function(e) { if (e.target.dataset.qtAcao === 'change-num') qtBuildFields(); });
 
 
 /* ==============================================================
@@ -1303,99 +1244,34 @@ function gerarPdfSorteio() {
     const doc = new jsPDF('p', 'mm', 'a4');
     const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
     let y = 15;
-
-    doc.setFillColor(10, 14, 12);
-    doc.rect(0, 0, pw, ph, 'F');
-    doc.setFillColor(255, 208, 0);
-    doc.rect(0, 0, pw, 3, 'F');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.setTextColor(255, 208, 0);
-    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' });
-    y += 14;
-
-    doc.setFontSize(13);
-    doc.setTextColor(107, 124, 114);
-    doc.text('Resultado do Sorteio', pw / 2, y, { align: 'center' });
-    y += 12;
-
-    doc.setFontSize(9);
-    doc.setTextColor(74, 92, 82);
+    doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(255, 208, 0); doc.rect(0, 0, pw, 3, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.setTextColor(255, 208, 0);
+    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' }); y += 14;
+    doc.setFontSize(13); doc.setTextColor(107, 124, 114); doc.text('Resultado do Sorteio', pw / 2, y, { align: 'center' }); y += 12;
+    doc.setFontSize(9); doc.setTextColor(74, 92, 82);
     const agora = new Date();
-    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' });
-    y += 10;
-
-    doc.setDrawColor(30, 42, 36);
-    doc.setLineWidth(0.3);
-    doc.line(ml, y, pw - mr, y);
-    y += 10;
-
-    const n = qt_grupos.length;
-    /* Calcular quantos cabem por página (aprox 68mm cada grupo) */
-    const grupoH = 68;
-    const maxPorPag = Math.floor((ph - 40) / grupoH);
-
+    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' }); y += 10;
+    doc.setDrawColor(30, 42, 36); doc.setLineWidth(0.3); doc.line(ml, y, pw - mr, y); y += 10;
+    const grupoH = 68, maxPorPag = Math.floor((ph - 40) / grupoH);
     qt_grupos.forEach((g, i) => {
-        if (i > 0 && i % maxPorPag === 0) {
-            doc.addPage();
-            doc.setFillColor(10, 14, 12);
-            doc.rect(0, 0, pw, ph, 'F');
-            y = 15;
-        }
-
-        /* Cabeçalho do quarteto */
-        if (i % 2 === 0) doc.setFillColor(0, 40, 22);
-        else doc.setFillColor(40, 35, 0);
+        if (i > 0 && i % maxPorPag === 0) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
+        if (i % 2 === 0) doc.setFillColor(0, 40, 22); else doc.setFillColor(40, 35, 0);
         doc.roundedRect(ml, y, cw, 10, 3, 3, 'F');
-
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
         doc.setTextColor(i % 2 === 0 ? 0 : 40, i % 2 === 0 ? 255 : 30, i % 2 === 0 ? 136 : 0);
-        doc.text('  QUARTETO ' + (i + 1), ml + 2, y + 7);
-        y += 14;
-
-        /* Jogadores */
-        const itens = [
-            { lbl: 'LEVANTADOR', val: g.levantador, cor: [255, 208, 0] },
-            { lbl: 'MENINA', val: g.menina, cor: [255, 105, 180] },
-            { lbl: 'JOGADOR', val: g.jogador1, cor: [0, 204, 106] },
-            { lbl: 'JOGADOR', val: g.jogador2, cor: [0, 204, 106] }
-        ];
-
-        itens.forEach(it => {
-            doc.setFillColor(20, 26, 23);
-            doc.roundedRect(ml + 4, y, cw - 8, 10, 2, 2, 'F');
-
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(...it.cor);
-            doc.text(it.lbl, ml + 10, y + 6.5);
-
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(11);
-            doc.setTextColor(232, 237, 233);
-            let v = it.val;
-            if (v.length > 38) v = v.substring(0, 36) + '..';
-            doc.text(v, ml + 42, y + 6.5);
-            y += 12;
-        });
-
-        y += 6;
+        doc.text('  QUARTETO ' + (i + 1), ml + 2, y + 7); y += 14;
+        [{ lbl: 'LEVANTADOR', val: g.levantador, cor: [255, 208, 0] }, { lbl: 'MENINA', val: g.menina, cor: [255, 105, 180] }, { lbl: 'JOGADOR', val: g.jogador1, cor: [0, 204, 106] }, { lbl: 'JOGADOR', val: g.jogador2, cor: [0, 204, 106] }].forEach(it => {
+            doc.setFillColor(20, 26, 23); doc.roundedRect(ml + 4, y, cw - 8, 10, 2, 2, 'F');
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(...it.cor); doc.text(it.lbl, ml + 10, y + 6.5);
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(232, 237, 233);
+            let v = it.val; if (v.length > 38) v = v.substring(0, 36) + '..'; doc.text(v, ml + 42, y + 6.5); y += 12;
+        }); y += 6;
     });
-
-    /* Rodapé */
-    y = ph - 12;
-    doc.setDrawColor(30, 42, 36);
-    doc.line(ml, y - 4, pw - mr, y - 4);
-    doc.setFontSize(7);
-    doc.setTextColor(58, 74, 66);
-    doc.text('Quarteto — Competicao de Volei', pw / 2, y, { align: 'center' });
-
-    doc.save('Quarteto_Sorteio.pdf');
-    toast('PDF do Sorteio baixado!', 'ok');
+    y = ph - 12; doc.setDrawColor(30, 42, 36); doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7); doc.setTextColor(58, 74, 66); doc.text('Quarteto — Competicao de Volei', pw / 2, y, { align: 'center' });
+    doc.save('Quarteto_Sorteio.pdf'); toast('PDF do Sorteio baixado!', 'ok');
 }
-
 
 /* ==============================================================
    PDF — QUARTETO RESULTADOS
@@ -1405,174 +1281,74 @@ function gerarPdfResultados() {
     const doc = new jsPDF('p', 'mm', 'a4');
     const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
     let y = 15;
-
-    doc.setFillColor(10, 14, 12);
-    doc.rect(0, 0, pw, ph, 'F');
-    doc.setFillColor(0, 255, 136);
-    doc.rect(0, 0, pw, 3, 'F');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.setTextColor(0, 255, 136);
-    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' });
-    y += 14;
-
-    doc.setFontSize(13);
-    doc.setTextColor(107, 124, 114);
-    doc.text('Resultados das Partidas', pw / 2, y, { align: 'center' });
-    y += 10;
-
-    doc.setFontSize(9);
-    doc.setTextColor(74, 92, 82);
+    doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(0, 255, 136); doc.rect(0, 0, pw, 3, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.setTextColor(0, 255, 136);
+    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' }); y += 14;
+    doc.setFontSize(13); doc.setTextColor(107, 124, 114); doc.text('Resultados das Partidas', pw / 2, y, { align: 'center' }); y += 10;
+    doc.setFontSize(9); doc.setTextColor(74, 92, 82);
     const agora = new Date();
-    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' });
-    y += 10;
+    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' }); y += 10;
+    doc.setDrawColor(30, 42, 36); doc.line(ml, y, pw - mr, y); y += 8;
 
-    doc.setDrawColor(30, 42, 36);
-    doc.line(ml, y, pw - mr, y);
-    y += 8;
-
-    /* Classificação resumida */
     const rk = qtCalcRanking();
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(0, 204, 106);
-    doc.text('CLASSIFICACAO', ml, y);
-    y += 7;
-
-    const colRk = [ml, ml + 14, ml + cw - 40, ml + cw - 18];
-    doc.setFontSize(8);
-    doc.setTextColor(107, 124, 114);
-    doc.text('#', colRk[0] + 3, y, { align: 'center' });
-    doc.text('QUARTETO', colRk[1], y);
-    doc.text('SALDO', colRk[1] + 65, y, { align: 'center' });
-    doc.text('PTS', colRk[2] + 30, y, { align: 'center' });
-    y += 2;
-    doc.line(ml, y, pw - mr, y);
-    y += 5;
-
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0, 204, 106); doc.text('CLASSIFICACAO', ml, y); y += 7;
+    doc.setFontSize(8); doc.setTextColor(107, 124, 114);
+    doc.text('#', ml + 3, y, { align: 'center' }); doc.text('QUARTETO', ml + 14, y);
+    doc.text('SALDO', ml + 79, y, { align: 'center' }); doc.text('PTS', ml + cw - 18, y, { align: 'center' });
+    y += 2; doc.line(ml, y, pw - mr, y); y += 5;
     rk.forEach((j, i) => {
-        if (i === 0) doc.setTextColor(255, 208, 0);
-        else if (i === 1) doc.setTextColor(192, 192, 192);
-        else if (i === 2) doc.setTextColor(205, 127, 50);
-        else doc.setTextColor(74, 92, 82);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11);
-        doc.text(String(i + 1), colRk[0] + 3, y, { align: 'center' });
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(10);
-        doc.setTextColor(232, 237, 233);
-        doc.text(qtNome(j.idx), colRk[1], y);
+        if (i === 0) doc.setTextColor(255, 208, 0); else if (i === 1) doc.setTextColor(192, 192, 192); else if (i === 2) doc.setTextColor(205, 127, 50); else doc.setTextColor(74, 92, 82);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text(String(i + 1), ml + 3, y, { align: 'center' });
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(232, 237, 233); doc.text(qtNome(j.idx), ml + 14, y);
         const sv = j.saldo > 0 ? '+' + j.saldo : String(j.saldo);
-        if (j.saldo > 0) doc.setTextColor(0, 255, 136);
-        else if (j.saldo < 0) doc.setTextColor(255, 71, 87);
-        else doc.setTextColor(74, 92, 82);
-        doc.text(sv, colRk[1] + 65, y, { align: 'center' });
-        if (i === 0) doc.setTextColor(255, 208, 0);
-        else if (i === 1) doc.setTextColor(192, 192, 192);
-        else if (i === 2) doc.setTextColor(205, 127, 50);
-        else doc.setTextColor(232, 237, 233);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.text(String(j.pts), colRk[2] + 30, y, { align: 'center' });
-        y += 7;
+        if (j.saldo > 0) doc.setTextColor(0, 255, 136); else if (j.saldo < 0) doc.setTextColor(255, 71, 87); else doc.setTextColor(74, 92, 82);
+        doc.text(sv, ml + 79, y, { align: 'center' });
+        if (i === 0) doc.setTextColor(255, 208, 0); else if (i === 1) doc.setTextColor(192, 192, 192); else if (i === 2) doc.setTextColor(205, 127, 50); else doc.setTextColor(232, 237, 233);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text(String(j.pts), ml + cw - 18, y, { align: 'center' }); y += 7;
     });
+    y += 4; doc.line(ml, y, pw - mr, y); y += 8;
 
-    y += 4;
-    doc.line(ml, y, pw - mr, y);
-    y += 8;
-
-    /* Detalhamento dos quartetos */
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(0, 204, 106);
-    doc.text('COMPOSICAO DOS QUARTETOS', ml, y);
-    y += 7;
-
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0, 204, 106); doc.text('COMPOSICAO', ml, y); y += 7;
     qt_grupos.forEach((g, i) => {
         if (y > ph - 25) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(9);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(9);
         doc.setTextColor(i % 2 === 0 ? 0 : 200, i % 2 === 0 ? 204 : 180, i % 2 === 0 ? 106 : 0);
         doc.text(qtNome(i) + ':', ml, y);
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(8);
-        doc.setTextColor(232, 237, 233);
-        const txt = 'Lev: ' + g.levantador + '  |  Men: ' + g.menina + '  |  ' + g.jogador1 + '  |  ' + g.jogador2;
-        let t = txt;
-        if (t.length > 90) t = t.substring(0, 88) + '..';
-        doc.text(t, ml + 28, y);
-        y += 6;
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(8); doc.setTextColor(232, 237, 233);
+        let t = 'Lev: ' + g.levantador + '  |  Men: ' + g.menina + '  |  ' + g.jogador1 + '  |  ' + g.jogador2;
+        if (t.length > 90) t = t.substring(0, 88) + '..'; doc.text(t, ml + 28, y); y += 6;
     });
+    y += 4; doc.line(ml, y, pw - mr, y); y += 8;
 
-    y += 4;
-    doc.line(ml, y, pw - mr, y);
-    y += 8;
-
-    /* Resultados por rodada */
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(0, 204, 106);
-    doc.text('RESULTADOS POR RODADA', ml, y);
-    y += 8;
-
-    const n = qt_grupos.length;
-    const totalR = qtTotalRodadas(n);
-
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0, 204, 106); doc.text('RESULTADOS POR RODADA', ml, y); y += 8;
+    const n = qt_grupos.length, totalR = qtTotalRodadas(n);
     for (let r = 1; r <= totalR; r++) {
         if (y > ph - 25) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
-        const pIdxs = [];
-        qt_partidas.forEach((p, i) => { if (p.rodada === r) pIdxs.push(i); });
-
-        doc.setFontSize(9);
-        doc.setTextColor(0, 204, 106);
-        doc.text('Rodada ' + r, ml, y);
-        y += 6;
-
-        pIdxs.forEach(pi => {
+        const pI = []; qt_partidas.forEach((p, i) => { if (p.rodada === r) pI.push(i); });
+        doc.setFontSize(9); doc.setTextColor(0, 204, 106); doc.text('Rodada ' + r, ml, y); y += 6;
+        pI.forEach(pi => {
             if (y > ph - 15) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
-            const p = qt_partidas[pi];
-            const n1 = qtNome(p.t1), n2 = qtNome(p.t2);
-
+            const p = qt_partidas[pi], n1 = qtNome(p.t1), n2 = qtNome(p.t2);
             if (p.conf) {
-                const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]);
-                const t1w = s1 > s2;
-                doc.setFontSize(9);
-                doc.setTextColor(t1w ? 232 : 74, t1w ? 237 : 92, t1w ? 233 : 82);
-                doc.text(n1, ml + 4, y);
-                doc.setTextColor(t1w ? 0 : 74, t1w ? 255 : 92, t1w ? 136 : 82);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-                doc.text(s1 + ' x ' + s2, pw / 2, y, { align: 'center' });
-                doc.setFont('helvetica', 'normal');
-                doc.setFontSize(9);
-                doc.setTextColor(!t1w ? 232 : 74, !t1w ? 237 : 92, !t1w ? 233 : 82);
-                doc.text(n2, pw - mr - 4, y, { align: 'right' });
+                const s1 = parseInt(p.placar[0]), s2 = parseInt(p.placar[1]), t1w = s1 > s2;
+                doc.setFontSize(9); doc.setTextColor(t1w ? 232 : 74, t1w ? 237 : 92, t1w ? 233 : 82); doc.text(n1, ml + 4, y);
+                doc.setTextColor(t1w ? 0 : 74, t1w ? 255 : 92, t1w ? 136 : 82); doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+                doc.text(s1 + ' x ' + s2, pw / 2, y, { align: 'center' }); doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+                doc.setTextColor(!t1w ? 232 : 74, !t1w ? 237 : 92, !t1w ? 233 : 82); doc.text(n2, pw - mr - 4, y, { align: 'right' });
             } else {
-                doc.setFontSize(9);
-                doc.setTextColor(58, 74, 66);
-                doc.text(n1, ml + 4, y);
-                doc.text('— x —', pw / 2, y, { align: 'center' });
-                doc.text(n2, pw - mr - 4, y, { align: 'right' });
+                doc.setFontSize(9); doc.setTextColor(58, 74, 66); doc.text(n1, ml + 4, y);
+                doc.text('— x —', pw / 2, y, { align: 'center' }); doc.text(n2, pw - mr - 4, y, { align: 'right' });
             }
             y += 7;
-        });
-        y += 3;
+        }); y += 3;
     }
-
-    /* Rodapé */
-    y = ph - 12;
-    doc.setDrawColor(30, 42, 36);
-    doc.line(ml, y - 4, pw - mr, y - 4);
-    doc.setFontSize(7);
-    doc.setTextColor(58, 74, 66);
+    y = ph - 12; doc.setDrawColor(30, 42, 36); doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7); doc.setTextColor(58, 74, 66);
     doc.text('Pontuacao: 3 pts por vitoria — Desempate por saldo de sets', pw / 2, y, { align: 'center' });
     doc.text('Quarteto — Competicao de Volei', pw / 2, y + 4, { align: 'center' });
-
-    doc.save('Quarteto_Resultados.pdf');
-    toast('PDF dos Resultados baixado!', 'ok');
+    doc.save('Quarteto_Resultados.pdf'); toast('PDF dos Resultados baixado!', 'ok');
 }
-
 
 /* ==============================================================
    PDF — QUARTETO CLASSIFICAÇÃO
@@ -1582,154 +1358,70 @@ function gerarPdfClass() {
     const doc = new jsPDF('p', 'mm', 'a4');
     const pw = 210, ph = 297, ml = 15, mr = 15, cw = pw - ml - mr;
     let y = 15;
-
-    doc.setFillColor(10, 14, 12);
-    doc.rect(0, 0, pw, ph, 'F');
-    doc.setFillColor(0, 255, 136);
-    doc.rect(0, 0, pw, 3, 'F');
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(22);
-    doc.setTextColor(0, 255, 136);
-    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' });
-    y += 14;
-
-    doc.setFontSize(13);
-    doc.setTextColor(107, 124, 114);
-    doc.text('Classificacao Geral', pw / 2, y, { align: 'center' });
-    y += 10;
-
-    doc.setFontSize(9);
-    doc.setTextColor(74, 92, 82);
+    doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F');
+    doc.setFillColor(0, 255, 136); doc.rect(0, 0, pw, 3, 'F');
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(22); doc.setTextColor(0, 255, 136);
+    doc.text('QUARTETO', pw / 2, y + 8, { align: 'center' }); y += 14;
+    doc.setFontSize(13); doc.setTextColor(107, 124, 114); doc.text('Classificacao Geral', pw / 2, y, { align: 'center' }); y += 10;
+    doc.setFontSize(9); doc.setTextColor(74, 92, 82);
     const agora = new Date();
-    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' });
-    y += 10;
+    doc.text('Gerado em: ' + agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), pw / 2, y, { align: 'center' }); y += 10;
+    doc.setDrawColor(30, 42, 36); doc.line(ml, y, pw - mr, y); y += 10;
 
-    doc.setDrawColor(30, 42, 36);
-    doc.line(ml, y, pw - mr, y);
-    y += 10;
-
-    /* Tabela de classificação */
     const rk = qtCalcRanking();
-    const colP = [ml, ml + 14, ml + 30, ml + cw - 38, ml + cw - 18];
-
-    doc.setFontSize(8);
-    doc.setTextColor(107, 124, 114);
-    doc.text('#', colP[0] + 3, y, { align: 'center' });
-    doc.text('QUARTETO', colP[1], y);
-    doc.text('SALDO', colP[2] + 30, y, { align: 'center' });
-    doc.text('PTS', colP[3] + 28, y, { align: 'center' });
-    y += 2;
-    doc.line(ml, y, pw - mr, y);
-    y += 6;
-
+    doc.setFontSize(8); doc.setTextColor(107, 124, 114);
+    doc.text('#', ml + 3, y, { align: 'center' }); doc.text('QUARTETO', ml + 16, y);
+    doc.text('SALDO', ml + cw - 38, y, { align: 'center' }); doc.text('PTS', ml + cw - 10, y, { align: 'center' });
+    y += 2; doc.line(ml, y, pw - mr, y); y += 6;
     rk.forEach((j, i) => {
-        if (i === 0) doc.setTextColor(255, 208, 0);
-        else if (i === 1) doc.setTextColor(192, 192, 192);
-        else if (i === 2) doc.setTextColor(205, 127, 50);
-        else doc.setTextColor(74, 92, 82);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.text(String(i + 1), colP[0] + 3, y, { align: 'center' });
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(11);
-        doc.setTextColor(232, 237, 233);
-        doc.text(qtNome(j.idx), colP[1], y);
+        if (i === 0) doc.setTextColor(255, 208, 0); else if (i === 1) doc.setTextColor(192, 192, 192); else if (i === 2) doc.setTextColor(205, 127, 50); else doc.setTextColor(74, 92, 82);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text(String(i + 1), ml + 3, y, { align: 'center' });
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(11); doc.setTextColor(232, 237, 233); doc.text(qtNome(j.idx), ml + 16, y);
         const sv = j.saldo > 0 ? '+' + j.saldo : String(j.saldo);
-        if (j.saldo > 0) doc.setTextColor(0, 255, 136);
-        else if (j.saldo < 0) doc.setTextColor(255, 71, 87);
-        else doc.setTextColor(74, 92, 82);
-        doc.text(sv, colP[2] + 30, y, { align: 'center' });
-        if (i === 0) doc.setTextColor(255, 208, 0);
-        else if (i === 1) doc.setTextColor(192, 192, 192);
-        else if (i === 2) doc.setTextColor(205, 127, 50);
-        else doc.setTextColor(232, 237, 233);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.text(String(j.pts), colP[3] + 28, y, { align: 'center' });
-        y += 9;
+        if (j.saldo > 0) doc.setTextColor(0, 255, 136); else if (j.saldo < 0) doc.setTextColor(255, 71, 87); else doc.setTextColor(74, 92, 82);
+        doc.text(sv, ml + cw - 38, y, { align: 'center' });
+        if (i === 0) doc.setTextColor(255, 208, 0); else if (i === 1) doc.setTextColor(192, 192, 192); else if (i === 2) doc.setTextColor(205, 127, 50); else doc.setTextColor(232, 237, 233);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.text(String(j.pts), ml + cw - 10, y, { align: 'center' }); y += 9;
     });
+    y += 6; doc.line(ml, y, pw - mr, y); y += 10;
 
-    y += 6;
-    doc.line(ml, y, pw - mr, y);
-    y += 10;
-
-    /* Detalhamento de cada quarteto */
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(0, 204, 106);
-    doc.text('COMPOSICAO DOS QUARTETOS', ml, y);
-    y += 10;
-
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.setTextColor(0, 204, 106); doc.text('COMPOSICAO DOS QUARTETOS', ml, y); y += 10;
     qt_grupos.forEach((g, i) => {
         if (y > ph - 50) { doc.addPage(); doc.setFillColor(10, 14, 12); doc.rect(0, 0, pw, ph, 'F'); y = 15; }
-
-        /* Posição no ranking */
-        const posRank = rk.findIndex(r => r.idx === i) + 1;
-        if (posRank === 1) doc.setTextColor(255, 208, 0);
-        else if (posRank === 2) doc.setTextColor(192, 192, 192);
-        else if (posRank === 3) doc.setTextColor(205, 127, 50);
-        else doc.setTextColor(232, 237, 233);
-
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.text(posRank + '. ' + qtNome(i), ml, y);
-        y += 7;
-
-        const itens = [
-            { lbl: 'Levantador', val: g.levantador, cor: [255, 208, 0] },
-            { lbl: 'Menina', val: g.menina, cor: [255, 105, 180] },
-            { lbl: 'Jogador', val: g.jogador1, cor: [0, 204, 106] },
-            { lbl: 'Jogador', val: g.jogador2, cor: [0, 204, 106] }
-        ];
-
-        itens.forEach(it => {
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(8);
-            doc.setTextColor(...it.cor);
-            doc.text(it.lbl + ':', ml + 8, y);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
-            doc.setTextColor(232, 237, 233);
-            let v = it.val;
-            if (v.length > 50) v = v.substring(0, 48) + '..';
-            doc.text(v, ml + 35, y);
-            y += 6;
+        const pR = rk.findIndex(r => r.idx === i) + 1;
+        if (pR === 1) doc.setTextColor(255, 208, 0); else if (pR === 2) doc.setTextColor(192, 192, 192); else if (pR === 3) doc.setTextColor(205, 127, 50); else doc.setTextColor(232, 237, 233);
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text(pR + '. ' + qtNome(i), ml, y); y += 7;
+        [{ lbl: 'Levantador', val: g.levantador, cor: [255, 208, 0] }, { lbl: 'Menina', val: g.menina, cor: [255, 105, 180] }, { lbl: 'Jogador', val: g.jogador1, cor: [0, 204, 106] }, { lbl: 'Jogador', val: g.jogador2, cor: [0, 204, 106] }].forEach(it => {
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(...it.cor); doc.text(it.lbl + ':', ml + 8, y);
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.setTextColor(232, 237, 233);
+            let v = it.val; if (v.length > 50) v = v.substring(0, 48) + '..'; doc.text(v, ml + 35, y); y += 6;
         });
-
-        y += 4;
-        doc.setDrawColor(30, 42, 36);
-        doc.setLineWidth(0.15);
-        doc.line(ml + 8, y, pw - mr - 8, y);
-        y += 6;
+        y += 4; doc.setDrawColor(30, 42, 36); doc.setLineWidth(0.15); doc.line(ml + 8, y, pw - mr - 8, y); y += 6;
     });
-
-    /* Rodapé */
-    y = ph - 12;
-    doc.setDrawColor(30, 42, 36);
-    doc.setLineWidth(0.3);
-    doc.line(ml, y - 4, pw - mr, y - 4);
-    doc.setFontSize(7);
-    doc.setTextColor(58, 74, 66);
+    y = ph - 12; doc.setDrawColor(30, 42, 36); doc.setLineWidth(0.3); doc.line(ml, y - 4, pw - mr, y - 4);
+    doc.setFontSize(7); doc.setTextColor(58, 74, 66);
     doc.text('Pontuacao: 3 pts por vitoria — Desempate por saldo de sets', pw / 2, y, { align: 'center' });
     doc.text('Quarteto — Competicao de Volei', pw / 2, y + 4, { align: 'center' });
-
-    doc.save('Quarteto_Classificacao.pdf');
-    toast('PDF da Classificacao baixado!', 'ok');
+    doc.save('Quarteto_Classificacao.pdf'); toast('PDF da Classificacao baixado!', 'ok');
 }
 
 
 /* ==============================================================
    INICIALIZAÇÃO
    ============================================================== */
+function initApp() {
+    if (appIniciado) return;
+    appIniciado = true;
+    initGrupos();
+    renderTabs();
+    renderContent();
+    qtCarregar();
+    qtRenderTabs();
+    qtRenderContent();
+}
 
-initGrupos();
-renderTabs();
-renderContent();
-
-qtCarregar();
-qtRenderTabs();
-qtRenderContent();
+/* Verificar acesso ao carregar a página */
+verificarAcesso();
 </script>
 </body>
 </html>
